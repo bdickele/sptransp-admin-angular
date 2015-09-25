@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+    	<link href="css/bootstrap_spacetransp.css" rel="stylesheet" media="screen">
+        <link href="sptransp.css" rel="stylesheet">
+		
+		<title>Rules</title>
+		
+		<script src="http://code.jquery.com/jquery.js"></script>
+	
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->	
+			
+	</head>
+	
+	<body>
+		<div id="header-nav"></div>
+        
+        <div class="container">
+			
+			<h3><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Agreement rules</h3><br/>
+
+			<!-- Display rules by destination or good -->
+			<form class="form-inline">
+				<div class="form-group">
+					<label>Display by &nbsp;&nbsp;</label>
+					<label><input type="radio" name="displayOption" id="displayOption1" value="destination" checked>
+						Destination</label>
+					<select class="form-control" id="inputDestination" form="formSearch">
+						<option value="">-- ALL --</option>
+						<option value="MARS">Mars</option>
+						<option value="MOON">Moon</option>
+						<option value="TITAN">Titan</option>
+					</select>						
+					&nbsp;&nbsp;
+					<label><input type="radio" name="displayOption" id="displayOption2" value="goods">
+						Goods</label>
+					<select class="form-control" id="inputGoods" form="formSearch">
+						<option value="">-- ALL --</option>
+						<option value="Food">Food</option>
+						<option value="Machine tool">Machine tool</option>
+						<option value="Medicine">Medicine</option>
+						<option value="Oil">Oil</option>
+						<option value="Weapon">Weapon</option>
+					</select>						
+				</div>
+			</form>
+			
+			<br/>
+			
+			<div class="panel panel-info">
+				<div class="panel-heading"<strong>Mars</strong>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Goods</th>
+								<th>Agreement visas required</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Food</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Medicine</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Oild</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Weapon</td>
+								<td>
+									<label class="label label-danger">Not allowed</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>	
+				</div>
+			</div>
+
+			<div class="panel panel-info">
+				<div class="panel-heading"<strong>Moon</strong>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Goods</th>
+								<th>Agreement visas required</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Food</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Medicine</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Oild</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Weapon</td>
+								<td>
+									<label class="label label-danger">Not allowed</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>	
+				</div>
+			</div>
+			
+			<div class="panel panel-info">
+				<div class="panel-heading"<strong>Titan</strong>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Goods</th>
+								<th>Agreement visas required</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Food</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Medicine</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Oild</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Weapon</td>
+								<td>
+									<span class="label label-default">Law compliance - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Shuttle compliance - 40</span>
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+									<span class="label label-default">Good inspection - 60</span> 
+									<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+									<span class="label label-default">Journey supervisor - 60</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>	
+				</div>
+			</div>			
+
+        </div>
+			
+    	<script src="js/bootstrap.min.js"></script>	
+		<script src="js/load-header-nav.js"></script>
+		
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+    	<link href="css/bootstrap_spacetransp.css" rel="stylesheet" media="screen">
+		
+		<title>Request details</title>
+		
+		<script src="http://code.jquery.com/jquery.js"></script> 
+	
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->		
+	</head>
+	
+	<body>
+		<div id="header-nav"></div>
+        
+        <div class="container">
+			
+			<h3><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Request</h3><br/>
+			
+			<div class="panel panel-info">
+				<div class="panel-heading">Reference : <strong>ABCD123456</strong>
+					<div class="pull-right">Overall status : <span class="label label-primary text-uppercase">Waiting for agreement</span></div>
+				</div>
+				<div class="panel-body">				
+					<div class="row">
+						<div class="col-xs-12 col-md-6">
+							<label>Customer : </label> Solar Transystem
+						</div>						
+						<div class="col-xs-12 col-md-6">
+							<label>Request date : </label> 02/01/2016 16:48 
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-6">
+							<label>Destination : </label> Moon
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<label>Goods : </label> Oil 
+						</div>
+					</div>			
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<label>Remaining visas : </label> 
+							<span class="label label-default">Good inspection - 60</span> 
+							<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>  
+							<span class="label label-default">Journey supervisor - 40</span>
+							<span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"></span>
+							<span class="label label-default">Journey supervisor - 60</span>
+						</div>
+					</div>					
+				</div>
+			</div>
+		
+			<div class="panel panel-default">
+				<div class="panel-heading"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Grant your visa</span>
+				</div>
+				<div class="panel-body">			
+					<form class="form-horizontal">
+						  
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> </label>
+    						<div class="col-sm-10">
+      							Your department is <strong>Journey supervisor</strong> and your 
+									  seniority is <strong>80</strong>.<br/>
+    						</div>
+  						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> </label>
+    						<div class="col-sm-10">
+      							<label>You're allowed to grant next expected visa "Journey supervisor - 60"</label>
+    						</div>
+  						</div>
+					
+						<div class="form-group">
+    						<label for="visaComment" class="col-sm-2 control-label">Comment</label>
+    						<div class="col-sm-10">
+								<textarea class="form-control" id="visaComment" rows="3" autofocus></textarea>
+    						</div>
+  						</div>
+					
+						<br/>
+						
+						<div class="row">
+							<div class="col-xs-12 col-md-12"><p class="text-center">
+								<a class="btn btn-default" href="request_details.html" role="button">Cancel</a>
+								<button class="btn btn-success" type="submit">
+									<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Grant your visa</button>
+								</p>
+							</div>
+						</div>
+															
+					</form>
+				</div>
+			</div>			
+
+        </div>
+			
+    	<script src="js/bootstrap.min.js"></script>	
+		<script src="js/load-header-nav.js"></script>
+		
+	</body>
+</html>
