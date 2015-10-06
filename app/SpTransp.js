@@ -7,19 +7,19 @@ var myModule = angular.module('SpTransp', [
     'SpTransp.Employees'
 ]);
 
-myModule.config(function($routeProvider) {
-  $routeProvider
-      .when('/', {
-          templateUrl: 'employees/employees.html',
-          controller: 'EmployeesCtrl',
-          controllerAs: 'employees',
-          requiresLogin: false
-      })
-      .when('/employees', {
-          templateUrl: 'employees/employees.html',
-          controller: 'EmployeesCtrl',
-          controllerAs: 'employees',
-          requiresLogin: false
-      })
-      .otherwise({redirectTo: '/employees'});
+myModule.config(function($routeProvider, $httpProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: 'employees/employees.html',
+            controller: 'EmployeesCtrl',
+            controllerAs: 'employees',
+            requiresLogin: false
+        })
+        .when('/employees', {
+            templateUrl: 'employees/employees.html',
+            controller: 'EmployeesCtrl',
+            controllerAs: 'employees',
+            requiresLogin: false
+        })
+        .otherwise({redirectTo: '/employees'});
 });
