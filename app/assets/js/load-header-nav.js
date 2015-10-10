@@ -1,3 +1,3 @@
-    		$(function(){
-      			$("#header-nav").load("common/header-nav.html");
-    		});
+	$(function(){
+		$("#header-nav").load("common/header-nav.html");
+	});

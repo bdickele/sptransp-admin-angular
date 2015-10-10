@@ -3,11 +3,13 @@
 // Declare app level module which depends on views, and components
 var myModule = angular.module('SpTransp', [
     'ngRoute',
+    'SpTransp.Login',
     'SpTransp.Common',
     'SpTransp.Employees'
 ]);
 
 myModule.config(function($routeProvider, $httpProvider) {
+
     $routeProvider
         .when('/', {
             templateUrl: 'employees/employees.html',
@@ -19,7 +21,9 @@ myModule.config(function($routeProvider, $httpProvider) {
             templateUrl: 'employees/employees.html',
             controller: 'EmployeesCtrl',
             controllerAs: 'employees',
-            requiresLogin: false
+            requiresLogin: true
         })
-        .otherwise({redirectTo: '/employees'});
+        .otherwise({redirectTo: '/'});
+
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 });

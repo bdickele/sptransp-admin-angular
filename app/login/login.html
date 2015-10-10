@@ -1,0 +1,38 @@
+        <br/>
+
+        <div class="jumbotron">
+            <h2><span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                Sign in to Space Transportation administration module</h2>
+            <p>
+
+            <div class="alert alert-danger" ng-show="error">
+                There was a problem logging in. Please try again.
+            </div>
+
+            <form class="form-horizontal" id="formLogin" ng-submit="signIn()">
+
+                <div class="form-group">
+                    <label for="inputUsername" class="col-sm-2 control-label">UID</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputUsername" class="form-control"
+                               ng-model="credentials.username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" id="inputPassword" class="form-control"
+                               ng-model="credentials.password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary small">Sign in</button>
+                    </div>
+                </div>
+
+            </form>
+            </p>
+        </div>

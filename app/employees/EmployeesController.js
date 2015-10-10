@@ -10,22 +10,29 @@ function EmployeesCtrl($log, EmployeesModel, MainModel) {
     employees.list = [];
 
     employees.availableDepartments = [];
+    employees.availableProfiles = [];
 
     employees.employeeSelected = false;
     employees.currentEmployeeUid = null;
     employees.currentEmployee = null;
     employees.editedEmployee = {};
 
-    employees.getAvailableDepartments = function() {
-        MainModel.getAvailableDepartments()
-            .then(function(result) {
-                employees.availableDepartments = result;
-            });
+    employees.getAllEmployees = function() {
+        EmployeesModel.getEmployees().then(function(result) {
+            employees.list = result;
+        });
     };
 
-    employees.getAllEmployees = function() {
-        //EmployeesModel.all().then
-        employees.list = EmployeesModel.all();
+    employees.getAvailableDepartments = function() {
+        MainModel.getAvailableDepartments().then(function(result) {
+            employees.availableDepartments = result;
+        });
+    };
+
+    employees.getEmployeeProfiles = function() {
+        EmployeesModel.getEmployeeProfiles().then(function(result) {
+                employees.availableProfiles = result;
+            });
     };
 
     employees.selectEmployee = function(employee) {
@@ -48,5 +55,6 @@ function EmployeesCtrl($log, EmployeesModel, MainModel) {
     };
 
     employees.getAvailableDepartments();
+    employees.getEmployeeProfiles();
     employees.getAllEmployees();
 }

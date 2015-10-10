@@ -1,26 +1,28 @@
 'use strict';
 
 angular.module("SpTransp.Employees")
-    .service("EmployeesModel", function() {
-        var service = this;
+    .service("EmployeesModel", function($log, $http, EndpointConfigService, UtilsService) {
+        var service = this,
+            MODEL = "/employees",
+            EMPLOYEE_PROFILES = "/employeeProfiles";
 
-        service.all = function() {
-            return [
-                {
-                    uid: "ABCD",
-                    fullName: "John DOE",
-                    departmentCode: "LAW_COMPLIANCE",
-                    seniority: 60,
-                    creationDate: "01/01/2016",
-                    creationUser: "ADMIN"
-                },
-                {
-                    uid: "ABCDE",
-                    fullName: "John DOEEE",
-                    departmentCode: "SHUTTLE_COMPLIANCE",
-                    seniority: 80,
-                    creationDate: "01/03/2016",
-                    creationUser: "ADMIN2"
-                }];
+        service.getEmployees = function() {
+            return $http
+                .get(EndpointConfigService.getUrl(MODEL + EndpointConfigService.getCurrentFormat()))
+                .then(function(result) {
+                    //$log.debug(UtilsService.objectToArray(result));
+                    return UtilsService.objectToArray(result);
+                }
+            );
+        }
+
+        service.getEmployeeProfiles = function() {
+            return $http
+                .get(EndpointConfigService.getUrl(EMPLOYEE_PROFILES + EndpointConfigService.getCurrentFormat()))
+                .then(function(result) {
+                    //$log.debug(UtilsService.objectToArray(result));
+                    return UtilsService.objectToArray(result);
+                }
+            );
         };
     });

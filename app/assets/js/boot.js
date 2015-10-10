@@ -14,6 +14,8 @@ head.load(
     { file: 'common/MainModel.js' },
     { file: 'common/EndpointConfigService.js' },
     { file: 'common/UtilsService.js' },
+    { file: 'login/Login.js' },
+    { file: 'login/LoginController.js' },
     { file: 'employees/Employees.js' },
     { file: 'employees/EmployeesController.js' },
     { file: 'employees/EmployeesModel.js' }

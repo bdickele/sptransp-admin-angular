@@ -21,6 +21,7 @@
             <tr class="info">
                 <th>Name</th>
                 <th>UID</th>
+                <th>Profile</th>
                 <th>Department</th>
                 <th>Seniority</th>
             </tr>
@@ -30,7 +31,8 @@
                     ng-click="employees.selectEmployee(employee)">
                 <td scope="row">{{employee.fullName}}</td>
                 <td>{{employee.uid}}</td>
-                <td>{{employee.departmentCode}}</td>
+                <td>{{employee.profileLabel}}</td>
+                <td>{{employee.departmentLabel}}</td>
                 <td>{{employee.seniority}}</td>
             </tr>
             </tbody>
@@ -47,7 +49,8 @@
                     <div class="col-xs-12 col-md-4"><label>{{employees.editedEmployee.creationDate}} by
                         {{employees.editedEmployee.creationUser}}</label></div>
                     <div class="col-xs-12 col-md-2"><p class="text-right">Last update :</p></div>
-                    <div class="col-xs-12 col-md-4"><label>TODO</label></div>
+                    <div class="col-xs-12 col-md-4"><label>{{employees.editedEmployee.updateDate}} by
+                        {{employees.editedEmployee.updateUser}}</label></div>
                 </div>
 
                 <form class="form-horizontal" name="employees.formEmployee">
@@ -59,6 +62,23 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Full name</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="inputName" class="form-control"
+                                   ng-model="employees.editedEmployee.fullName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputProfile" class="col-sm-2 control-label">Profile</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="inputProfile"
+                                    ng-model="employees.editedEmployee.profileCode"
+                                    ng-options="profile.code as profile.label for profile in employees.availableProfiles">
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="inputDepartment" class="col-sm-2 control-label">Department</label>
@@ -74,7 +94,7 @@
                         <label for="inputSeniority" class="col-sm-2 control-label">Seniority</label>
                         <div class="col-sm-10">
                             <input type="number" id="inputSeniority" class="form-control" min="0" max="100"
-                                   value="{{employees.editedEmployee.seniority}}">
+                                   ng-model="employees.editedEmployee.seniority">
                         </div>
                     </div>
 
