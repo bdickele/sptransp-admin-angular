@@ -42,16 +42,34 @@ function EmployeesCtrl($log, EmployeesModel, MainModel) {
         employees.editedEmployee = angular.copy(employees.currentEmployee);
     };
 
-    employees.cancel = function() {
+    employees.cancelEdition = function() {
         employees.resetForm();
     }
 
     employees.resetForm = function() {
         employees.currentEmployee = null;
+        employees.currentEmployeeUid = null;
         employees.editedEmployee = {};
         employees.formEmployee.$setPristine();
         employees.formEmployee.$setUntouched();
         employees.employeeSelected = false;
+    };
+
+    employees.saveEdition = function() {
+        var fields = ['uid', 'profileCode', 'fullName', 'departmentCode', 'seniority'];
+
+        fields.forEach(function (field) {
+            employees.currentEmployee[field] = employees.editedEmployee[field]
+        });
+
+        EmployeesModel.updateEmployee(employees.currentEmployeeUid, employees.editedEmployee)
+            .then(function (result) {
+                employees.getAllEmployees();
+                employees.resetForm();
+                $log.debug('RESULT', result);
+            }, function (reason) {
+                $log.error('REASON', reason);
+            });
     };
 
     employees.getAvailableDepartments();

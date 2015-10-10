@@ -3,8 +3,8 @@
 angular.module("SpTransp.Employees")
     .service("EmployeesModel", function($log, $http, EndpointConfigService, UtilsService) {
         var service = this,
-            MODEL = "/employees",
-            EMPLOYEE_PROFILES = "/employeeProfiles";
+            MODEL = "employees/",
+            EMPLOYEE_PROFILES = "employeeProfiles/";
 
         service.getEmployees = function() {
             return $http
@@ -23,6 +23,12 @@ angular.module("SpTransp.Employees")
                     //$log.debug(UtilsService.objectToArray(result));
                     return UtilsService.objectToArray(result);
                 }
+            );
+        };
+
+        service.updateEmployee = function (employeeUid, employee) {
+            return $http.put(
+                EndpointConfigService.getUrlForId(MODEL, employeeUid), employee
             );
         };
     });

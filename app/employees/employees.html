@@ -100,13 +100,14 @@
 
                 </form>
 
-
                 <div class="row">
                     <div class="col-xs-12 col-md-12"><p class="text-center">
 
                         <button class="btn btn-primary"
-                                ng-click="employees.cancel()">Cancel</button>
-                        <button type="submit" class="btn btn-success">
+                                ng-click="employees.cancelEdition()">Cancel</button>
+                        <button type="submit" class="btn btn-success"
+                                ng-disabled="!employees.formEmployee.$valid"
+                                ng-click="employees.saveEdition()">
                             <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save</button>
                     </p>
                     </div>
