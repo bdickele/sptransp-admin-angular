@@ -22,5 +22,10 @@ function EmployeesCtrl($location, EmployeesModel) {
         $location.path(destination);
     };
 
+    employees.createEmployee = function() {
+        var destination = EmployeesModel.getUrl() + "new";
+        $location.path(destination);
+    }
+
     employees.getAllEmployees();
 }

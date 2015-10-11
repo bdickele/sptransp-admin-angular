@@ -11,7 +11,11 @@ function EmployeeFormModel($log, $http, EndpointConfigService, UtilsService) {
         return $http.get(EndpointConfigService.getUrlForId(URL, employeeUid));
     };
 
-    model.updateEmployee = function (employeeUid, employee) {
+    model.createEmployee = function(employee) {
+        return $http.post(EndpointConfigService.getUrl(URL), employee);
+    };
+
+    model.updateEmployee = function(employeeUid, employee) {
         return $http.put(EndpointConfigService.getUrlForId(URL, employeeUid), employee);
     };
 

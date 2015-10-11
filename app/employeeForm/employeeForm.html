@@ -1,7 +1,6 @@
     <div class="row">
         <div class="col-xs-12 col-md-10">
-            <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Employee
-                {{employee.currentEmployee.fullName}}</h3>
+            <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{employee.title}}</h3>
         </div>
     </div>
 
@@ -11,7 +10,7 @@
 
         <div class="panel-body">
 
-            <div class="row">
+            <div class="row" ng-show="!employee.creationMode">
                 <div class="col-xs-12 col-md-2"><p class="text-right">Creation :</p></div>
                 <div class="col-xs-12 col-md-4"><label>{{employee.editedEmployee.creationDate}} by
                     {{employee.editedEmployee.creationUser}}</label></div>
@@ -22,10 +21,10 @@
 
             <form class="form-horizontal" name="employee.formEmployee">
 
-                <div class="form-group">
+                <div class="form-group" ng-show="!employee.creationMode">
                     <label for="uid" class="col-sm-2 control-label">UID</label>
                     <div class="col-sm-10">
-                        <label class="form-control-static">{{employee.editedEmployee.uid}}</label>
+                        <label id="uid" class="form-control-static">{{employee.editedEmployee.uid}}</label>
                     </div>
                 </div>
 
@@ -74,8 +73,13 @@
                             ng-click="employee.cancel()">Cancel</button>
                     <button type="submit" class="btn btn-success"
                             ng-disabled="!employee.formEmployee.$valid"
-                            ng-click="employee.save()">
+                            ng-click="employee.save(false)">
                         <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save</button>
+                    <button type="submit" class="btn btn-success"
+                            ng-disabled="!employee.formEmployee.$valid"
+                            ng-click="employee.save(true)"
+                            ng-show="employee.creationMode">
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save and add new</button>
                 </p>
                 </div>
             </div>
