@@ -18,5 +18,8 @@ head.load(
     { file: 'login/LoginController.js' },
     { file: 'employees/Employees.js' },
     { file: 'employees/EmployeesController.js' },
-    { file: 'employees/EmployeesModel.js' }
+    { file: 'employees/EmployeesModel.js' },
+    { file: 'employeeForm/EmployeeForm.js' },
+    { file: 'employeeForm/EmployeeFormController.js' },
+    { file: 'employeeForm/EmployeeFormModel.js' }
 );

@@ -1,0 +1,85 @@
+    <div class="row">
+        <div class="col-xs-12 col-md-10">
+            <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Employee
+                {{employee.currentEmployee.fullName}}</h3>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="panel panel-info">
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-xs-12 col-md-2"><p class="text-right">Creation :</p></div>
+                <div class="col-xs-12 col-md-4"><label>{{employee.editedEmployee.creationDate}} by
+                    {{employee.editedEmployee.creationUser}}</label></div>
+                <div class="col-xs-12 col-md-2"><p class="text-right">Last update :</p></div>
+                <div class="col-xs-12 col-md-4"><label>{{employee.editedEmployee.updateDate}} by
+                    {{employee.editedEmployee.updateUser}}</label></div>
+            </div>
+
+            <form class="form-horizontal" name="employee.formEmployee">
+
+                <div class="form-group">
+                    <label for="uid" class="col-sm-2 control-label">UID</label>
+                    <div class="col-sm-10">
+                        <label class="form-control-static">{{employee.editedEmployee.uid}}</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Full name</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputName" class="form-control"
+                               ng-model="employee.editedEmployee.fullName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputProfile" class="col-sm-2 control-label">Profile</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="inputProfile"
+                                ng-model="employee.editedEmployee.profileCode"
+                                ng-options="profile.code as profile.label for profile in employee.availableProfiles">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputDepartment" class="col-sm-2 control-label">Department</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="inputDepartment"
+                                ng-model="employee.editedEmployee.departmentCode"
+                                ng-options="department.code as department.name for department in employee.availableDepartments">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputSeniority" class="col-sm-2 control-label">Seniority</label>
+                    <div class="col-sm-10">
+                        <input type="number" id="inputSeniority" class="form-control" min="0" max="100"
+                               ng-model="employee.editedEmployee.seniority">
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12"><p class="text-center">
+
+                    <button class="btn btn-primary"
+                            ng-click="employee.cancel()">Cancel</button>
+                    <button type="submit" class="btn btn-success"
+                            ng-disabled="!employee.formEmployee.$valid"
+                            ng-click="employee.save()">
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save</button>
+                </p>
+                </div>
+            </div>
+
+        </div> <!-- end of panel-body -->
+
+    </div> <!-- end of panel -->

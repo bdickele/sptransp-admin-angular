@@ -1,34 +1,20 @@
 'use strict';
 
 angular.module("SpTransp.Employees")
-    .service("EmployeesModel", function($log, $http, EndpointConfigService, UtilsService) {
-        var service = this,
-            MODEL = "employees/",
-            EMPLOYEE_PROFILES = "employeeProfiles/";
+    .service("EmployeesModel", EmployeesModel);
 
-        service.getEmployees = function() {
-            return $http
-                .get(EndpointConfigService.getUrl(MODEL + EndpointConfigService.getCurrentFormat()))
-                .then(function(result) {
-                    //$log.debug(UtilsService.objectToArray(result));
-                    return UtilsService.objectToArray(result);
-                }
-            );
-        }
+function EmployeesModel($http, EndpointConfigService, UtilsService) {
+    var model = this,
+        URL = "employees/";
 
-        service.getEmployeeProfiles = function() {
-            return $http
-                .get(EndpointConfigService.getUrl(EMPLOYEE_PROFILES + EndpointConfigService.getCurrentFormat()))
-                .then(function(result) {
-                    //$log.debug(UtilsService.objectToArray(result));
-                    return UtilsService.objectToArray(result);
-                }
-            );
-        };
+    model.getUrl = function() {return URL};
 
-        service.updateEmployee = function (employeeUid, employee) {
-            return $http.put(
-                EndpointConfigService.getUrlForId(MODEL, employeeUid), employee
-            );
-        };
-    });
+    model.getEmployees = function() {
+        return $http
+            .get(EndpointConfigService.getUrl(URL + EndpointConfigService.getCurrentFormat()))
+            .then(function(result) {
+                return UtilsService.objectToArray(result);
+            }
+        );
+    };
+};

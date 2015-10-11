@@ -5,7 +5,8 @@ var myModule = angular.module('SpTransp', [
     'ngRoute',
     'SpTransp.Login',
     'SpTransp.Common',
-    'SpTransp.Employees'
+    'SpTransp.Employees',
+    'SpTransp.EmployeeForm'
 ]);
 
 myModule.config(function($routeProvider, $httpProvider) {
@@ -21,6 +22,12 @@ myModule.config(function($routeProvider, $httpProvider) {
             templateUrl: 'employees/employees.html',
             controller: 'EmployeesCtrl',
             controllerAs: 'employees',
+            requiresLogin: true
+        })
+        .when('/employees/:uid', {
+            templateUrl: 'employeeForm/employeeForm.html',
+            controller: 'EmployeeFormCtrl',
+            controllerAs: 'employee',
             requiresLogin: true
         })
         .otherwise({redirectTo: '/'});
