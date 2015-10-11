@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-xs-12 col-md-10">
+        <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Customers</h3>
+    </div>
+    <div class="col-xs-12 col-md-2">
+        <p class="text-right">
+            <button type="button" class="btn btn-default"
+                    ng-click="customers.createCustomer()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </p>
+    </div>
+</div>
+
+<br/>
+
+<table class="table table-bordered">
+    <thead>
+    <tr class="info">
+        <th>Name</th>
+        <th>UID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="customer in customers.list"
+        ng-click="customers.selectCustomer(customer)">
+        <td scope="row">{{customer.fullName}}</td>
+        <td>{{customer.uid}}</td>
+    </tr>
+    </tbody>
+</table>

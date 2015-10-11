@@ -21,5 +21,8 @@ head.load(
     { file: 'employees/EmployeesModel.js' },
     { file: 'employeeForm/EmployeeForm.js' },
     { file: 'employeeForm/EmployeeFormController.js' },
-    { file: 'employeeForm/EmployeeFormModel.js' }
+    { file: 'employeeForm/EmployeeFormModel.js' },
+    { file: 'customers/Customers.js' },
+    { file: 'customers/CustomersController.js' },
+    { file: 'customers/CustomersModel.js' }
 );
