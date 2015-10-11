@@ -23,51 +23,56 @@
 
                 <div class="form-group" ng-show="!employee.creationMode">
                     <label for="uid" class="col-sm-2 control-label">UID</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <label id="uid" class="form-control-static">{{employee.editedEmployee.uid}}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Full name</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="inputName" class="form-control"
-                               ng-model="employee.editedEmployee.fullName">
+                    <div class="col-sm-6">
+                        <input type="text" id="inputName" name="inputName" class="form-control"
+                               ng-model="employee.editedEmployee.fullName"
+                               ng-required="true">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputProfile" class="col-sm-2 control-label">Profile</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <select class="form-control" id="inputProfile"
                                 ng-model="employee.editedEmployee.profileCode"
-                                ng-options="profile.code as profile.label for profile in employee.availableProfiles">
+                                ng-options="profile.code as profile.label for profile in employee.availableProfiles"
+                                ng-required="true">
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputDepartment" class="col-sm-2 control-label">Department</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <select class="form-control" id="inputDepartment"
                                 ng-model="employee.editedEmployee.departmentCode"
-                                ng-options="department.code as department.name for department in employee.availableDepartments">
+                                ng-options="department.code as department.name for department in employee.availableDepartments"
+                                ng-required="true">
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputSeniority" class="col-sm-2 control-label">Seniority</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input type="number" id="inputSeniority" class="form-control" min="0" max="100"
-                               ng-model="employee.editedEmployee.seniority">
+                               ng-model="employee.editedEmployee.seniority"
+                               ng-required="true">
                     </div>
                 </div>
 
             </form>
 
             <div class="row">
-                <div class="col-xs-12 col-md-12"><p class="text-center">
+                <div class="col-xs-0 col-md-2"></div>
+                <div class="col-xs-12 col-md-6"><p class="text-center">
 
                     <button class="btn btn-primary"
                             ng-click="employee.cancel()">Cancel</button>
