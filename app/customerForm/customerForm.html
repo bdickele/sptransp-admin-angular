@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-xs-12 col-md-10">
+        <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{customer.title}}</h3>
+    </div>
+</div>
+
+<br/>
+
+<div class="panel panel-info">
+
+    <div class="panel-body">
+
+        <div class="row" ng-show="!customer.creationMode">
+            <div class="col-xs-12 col-md-2"><p class="text-right">Creation :</p></div>
+            <div class="col-xs-12 col-md-4"><label>{{customer.editedCustomer.creationDate}} by
+                {{customer.editedCustomer.creationUser}}</label></div>
+            <div class="col-xs-12 col-md-2"><p class="text-right">Last update :</p></div>
+            <div class="col-xs-12 col-md-4"><label>{{customer.editedCustomer.updateDate}} by
+                {{customer.editedCustomer.updateUser}}</label></div>
+        </div>
+
+        <form class="form-horizontal" name="customer.formCustomer">
+
+            <div class="form-group" ng-show="!customer.creationMode">
+                <label for="uid" class="col-sm-2 control-label">UID</label>
+                <div class="col-sm-6">
+                    <label id="uid" class="form-control-static">{{customer.editedCustomer.uid}}</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Full name</label>
+                <div class="col-sm-6">
+                    <input type="text" id="inputName" name="inputName" class="form-control"
+                           ng-model="customer.editedCustomer.fullName"
+                           ng-required="true">
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row">
+            <div class="col-xs-0 col-md-2"></div>
+            <div class="col-xs-12 col-md-6"><p class="text-center">
+
+                <button class="btn btn-primary"
+                        ng-click="customer.cancel()">Cancel</button>
+                <button type="submit" class="btn btn-success"
+                        ng-disabled="!customer.formCustomer.$valid"
+                        ng-click="customer.save(false)">
+                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save</button>
+                <button type="submit" class="btn btn-success"
+                        ng-disabled="!customer.formCustomer.$valid"
+                        ng-click="customer.save(true)"
+                        ng-show="customer.creationMode">
+                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save and add new</button>
+            </p>
+            </div>
+        </div>
+
+    </div> <!-- end of panel-body -->
+
+</div> <!-- end of panel -->

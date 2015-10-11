@@ -1,0 +1,29 @@
+    <h3><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Agreement rules</h3>
+
+    <br/>
+
+    <!-- Display rules by destination or good -->
+    <form class="form-inline">
+        <div class="form-group">
+            <label>Display by &nbsp;&nbsp;</label>
+            <label><input type="radio" name="displayOption" id="displayOption1" value="destination"
+                          ng-checked="agreementRules.displayMode=='destination'"
+                          ng-click="agreementRules.selectDisplayMode('destination')">
+                Destination</label>
+            <select class="form-control" id="inputDestination" name="inputDestination"
+                    ng-model="agreementRules.selectedDestination"
+                    ng-options="destination.code as destination.name for destination in agreementRules.availableDestinations">
+            </select>
+            &nbsp;&nbsp;
+            <label><input type="radio" name="displayOption" id="displayOption2" value="goods"
+                          ng-checked="agreementRules.displayMode=='goods'"
+                          ng-click="agreementRules.selectDisplayMode('goods')">
+                Goods</label>
+            <select class="form-control" id="inputGoods" name="inputGoods"
+                    ng-model="agreementRules.selectedGoods"
+                    ng-options="goods.code as goods.name for goods in agreementRules.availableGoods">
+            </select>
+        </div>
+    </form>
+
+    <br/>

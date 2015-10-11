@@ -16,6 +16,9 @@ head.load(
     { file: 'common/UtilsService.js' },
     { file: 'login/Login.js' },
     { file: 'login/LoginController.js' },
+    { file: 'agreementRules/AgreementRules.js' },
+    { file: 'agreementRules/AgreementRulesController.js' },
+    { file: 'agreementRules/AgreementRulesModel.js' },
     { file: 'employees/Employees.js' },
     { file: 'employees/EmployeesController.js' },
     { file: 'employees/EmployeesModel.js' },
@@ -24,5 +27,8 @@ head.load(
     { file: 'employeeForm/EmployeeFormModel.js' },
     { file: 'customers/Customers.js' },
     { file: 'customers/CustomersController.js' },
-    { file: 'customers/CustomersModel.js' }
+    { file: 'customers/CustomersModel.js' },
+    { file: 'customerForm/CustomerForm.js' },
+    { file: 'customerForm/CustomerFormController.js' },
+    { file: 'customerForm/CustomerFormModel.js' }
 );

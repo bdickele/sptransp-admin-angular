@@ -5,7 +5,8 @@ angular.module('SpTransp.EmployeeForm')
 
 function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeFormModel, EmployeesModel) {
     var employee = this;
-    var employeeUid = $routeParams['uid'];
+
+    employee.employeeUid = $routeParams['uid'];
 
     employee.availableDepartments = [];
     employee.availableProfiles = [];
@@ -16,7 +17,7 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     employee.title = "";
     employee.creationMode = false;
 
-    if (employeeUid == "new") employee.creationMode = true;
+    if (employee.employeeUid == "new") employee.creationMode = true;
 
 
     employee.getAvailableDepartments = function() {
@@ -41,13 +42,13 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     };
 
     employee.retrieveEmployee = function() {
-        EmployeeFormModel.getEmployee(employeeUid)
+        EmployeeFormModel.getEmployee(employee.employeeUid)
             .then(function(result) {
                 employee.currentEmployee = result.data;
                 employee.editedEmployee = angular.copy(employee.currentEmployee);
                 employee.title = "Employee " + employee.currentEmployee.fullName;
             }, function(reason) {
-                $log.error("Could not retrieve employee with uid " + employeeUid + " : " + reason);
+                $log.error("Could not retrieve employee with uid " + employee.employeeUid + " : " + reason);
             });
     };
 
@@ -64,7 +65,7 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     };
 
     employee.update = function() {
-        EmployeeFormModel.updateEmployee(employeeUid, employee.editedEmployee)
+        EmployeeFormModel.updateEmployee(employee.employeeUid, employee.editedEmployee)
             .then(function (result) {
                 $location.path(EmployeesModel.getUrl());
             }, function (reason) {
