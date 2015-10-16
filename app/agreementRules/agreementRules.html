@@ -7,23 +7,94 @@
         <div class="form-group">
             <label>Display by &nbsp;&nbsp;</label>
             <label><input type="radio" name="displayOption" id="displayOption1" value="destination"
-                          ng-checked="agreementRules.displayMode=='destination'"
-                          ng-click="agreementRules.selectDisplayMode('destination')">
+                          ng-checked="displayMode=='destination'"
+                          ng-click="selectDisplayMode('destination')">
                 Destination</label>
             <select class="form-control" id="inputDestination" name="inputDestination"
-                    ng-model="agreementRules.selectedDestination"
+                    ng-model="selectedDestination"
                     ng-options="destination.code as destination.name for destination in agreementRules.availableDestinations">
             </select>
             &nbsp;&nbsp;
             <label><input type="radio" name="displayOption" id="displayOption2" value="goods"
-                          ng-checked="agreementRules.displayMode=='goods'"
-                          ng-click="agreementRules.selectDisplayMode('goods')">
+                          ng-checked="displayMode=='goods'"
+                          ng-click="selectDisplayMode('goods')">
                 Goods</label>
             <select class="form-control" id="inputGoods" name="inputGoods"
-                    ng-model="agreementRules.selectedGoods"
+                    ng-model="selectedGoods"
                     ng-options="goods.code as goods.name for goods in agreementRules.availableGoods">
             </select>
         </div>
     </form>
 
     <br/>
+
+    <!-- Rules per destination -->
+    <div ng-show="displayMode=='destination'">
+        <div class="panel panel-info"
+             ng-repeat="agreementRule in agreementRules.rulesPerDestination"
+             ng-show="selectedDestination=='all' || selectedDestination==agreementRule.code">
+            <div class="panel-heading"><strong>{{agreementRule.label}}</strong></div>
+
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Goods</th>
+                        <th>Agreement visas required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="rule in agreementRule.rules">
+                        <td>{{rule.goodsLabel}}</td>
+                        <td ng-show="rule.allowed">
+                            <span ng-repeat="visa in rule.visas">
+                                <span class="label label-default">{{visa.departmentLabel}} - {{visa.seniority}}</span>
+                                <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
+                                        ng-if="!$last"></span>
+                            </span>
+                        </td>
+                        <td ng-show="!rule.allowed">
+                            <label class="label label-danger">Not allowed</label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Rules per goods -->
+    <div ng-show="displayMode=='goods'">
+        <div class="panel panel-info"
+             ng-repeat="agreementRule in agreementRules.rulesPerGoods"
+             ng-show="selectedGoods=='all' || selectedGoods==agreementRule.code">
+            <div class="panel-heading"><strong>{{agreementRule.label}}</strong></div>
+
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Agreement visas required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="rule in agreementRule.rules">
+                        <td>{{rule.destinationLabel}}</td>
+                        <td ng-show="rule.allowed">
+                            <span ng-repeat="visa in rule.visas">
+                                <span class="label label-default">{{visa.departmentLabel}} - {{visa.seniority}}</span>
+                                <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
+                                      ng-if="!$last"></span>
+                            </span>
+                        </td>
+                        <td ng-show="!rule.allowed">
+                            <label class="label label-danger">Not allowed</label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
