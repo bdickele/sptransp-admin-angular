@@ -12,6 +12,8 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     agreementRule.editionMode = false;
     agreementRule.departments = [];
 
+    $scope.panelStyle = "panel panel-info";
+
     $scope.destination = {
         code: $routeParams['destinationCode'].toUpperCase(),
         name : ''
@@ -27,6 +29,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         agreementRule.creationMode = !editionMode;
         agreementRule.rule = rule;
         agreementRule.editedRule = angular.copy(agreementRule.rule);
+        if (!rule.allowed) $scope.panelStyle = 'panel panel-danger';
     };
 
     agreementRule.getRule = function(destinationCode, goodsCode) {
@@ -88,6 +91,69 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         $location.path('agreementRules/');
     };
 
+
     agreementRule.getDepartments();
     agreementRule.getRule($scope.destination.code, $scope.goods.code);
+
+    // ========================================================================
+    // Methods to handle visas (add, remove ...)
+    // ========================================================================
+
+    agreementRule.removeVisa = function(index) {
+        var visas = agreementRule.editedRule.agreementVisas;
+        if (visas.length < 2) return;
+        agreementRule.editedRule.agreementVisas.splice(index, 1);
+    };
+
+    agreementRule.addVisa = function() {
+        agreementRule.editedRule.agreementVisas.push({
+                departmentCode : agreementRule.departments[0].code,
+                seniority: 10}
+        );
+    };
+
+    agreementRule.moveVisaLeft = function(index) {
+        var visas = agreementRule.editedRule.agreementVisas;
+        if (index<=0) return;
+
+        var visasBefore = visas.slice(0, index-1);
+        var visaToMoveToTheLeft = visas.slice(index, index+1);
+        var visaToMoveToTheRight = visas.slice(index-1, index);
+        var visasAfter = visas.slice(index+1);
+
+        agreementRule.editedRule.agreementVisas = visasBefore
+            .concat(visaToMoveToTheLeft)
+            .concat(visaToMoveToTheRight)
+            .concat(visasAfter);
+    };
+
+    agreementRule.moveVisaRight = function(index) {
+        var visas = agreementRule.editedRule.agreementVisas;
+        if (index>(visas.length-1)) return;
+
+        var visasBefore = [];
+        if (index > 0) {
+            visasBefore = visas.slice(0, index);
+        }
+        var visaToMoveToTheLeft = visas.slice(index+1, index+2);
+        var visaToMoveToTheRight = visas.slice(index, index+1);
+        var visasAfter = visas.slice(index+2);
+
+        /*
+        $log.debug(visasBefore);
+        $log.debug(visaToMoveToTheLeft);
+        $log.debug(visaToMoveToTheRight);
+        $log.debug(visasAfter);
+        */
+
+        agreementRule.editedRule.agreementVisas = visasBefore
+            .concat(visaToMoveToTheLeft)
+            .concat(visaToMoveToTheRight)
+            .concat(visasAfter);
+    };
+
+    // ========================================================================
+    // Methods to cancel, save, ban or unban agreement rule
+    // ========================================================================
+
 }

@@ -12,7 +12,7 @@
                 Destination</label>
             <select class="form-control" id="inputDestination" name="inputDestination"
                     ng-model="selectedDestination"
-                    ng-options="destination.code as destination.name for destination in agreementRules.availableDestinations">
+                    ng-options="destination.code as destination.name for destination in agreementRules.destinationsForSelect">
             </select>
             &nbsp;&nbsp;
             <label><input type="radio" name="displayOption" id="displayOption2" value="goods"
@@ -21,7 +21,7 @@
                 Goods</label>
             <select class="form-control" id="inputGoods" name="inputGoods"
                     ng-model="selectedGoods"
-                    ng-options="goods.code as goods.name for goods in agreementRules.availableGoods">
+                    ng-options="goods.code as goods.name for goods in agreementRules.goodsForSelect">
             </select>
         </div>
     </form>
@@ -29,11 +29,12 @@
     <br/>
 
     <!-- Rules per destination -->
+
     <div ng-show="displayMode=='destination'">
         <div class="panel panel-info"
-             ng-repeat="agreementRule in agreementRules.rulesPerDestination"
-             ng-show="selectedDestination=='all' || selectedDestination==agreementRule.code">
-            <div class="panel-heading"><strong>{{agreementRule.label}}</strong></div>
+             ng-repeat="destination in agreementRules.destinations"
+             ng-show="selectedDestination=='all' || selectedDestination==destination.code">
+            <div class="panel-heading"><strong>{{destination.name}}</strong></div>
 
             <div class="panel-body">
                 <table class="table">
@@ -44,18 +45,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="rule in agreementRule.rules"
-                        ng-click="agreementRules.selectRule(agreementRule.code, rule.goodsCode)">
-                        <td>{{rule.goodsLabel}}</td>
-                        <td ng-show="rule.allowed">
-                            <span ng-repeat="visa in rule.visas">
-                                <span class="label label-default">{{visa.departmentLabel}} - {{visa.seniority}}</span>
+                    <tr ng-repeat="goods in agreementRules.goods"
+                        ng-click="agreementRules.selectRule(destination.code, goods.code)">
+                        <td>{{goods.name}}</td>
+                        <td ng-if="agreementRules.getRule(destination.code, goods.code).allowed">
+                            <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).agreementVisas">
+                                <span class="label label-default">{{visa.departmentName}} - {{visa.seniority}}</span>
                                 <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
-                                        ng-if="!$last"></span>
+                                      ng-if="!$last"></span>
                             </span>
                         </td>
-                        <td ng-show="!rule.allowed">
+                        <td ng-if="!agreementRules.getRule(destination.code, goods.code).allowed">
                             <label class="label label-danger">Not allowed</label>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-sm"
+                                    ng-click="agreementRules.selectEmployee(destinationCode, goods.code)">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create/Edit
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -64,13 +71,13 @@
         </div>
     </div>
 
-
     <!-- Rules per goods -->
+
     <div ng-show="displayMode=='goods'">
         <div class="panel panel-info"
-             ng-repeat="agreementRule in agreementRules.rulesPerGoods"
-             ng-show="selectedGoods=='all' || selectedGoods==agreementRule.code">
-            <div class="panel-heading"><strong>{{agreementRule.label}}</strong></div>
+             ng-repeat="goods in agreementRules.goods"
+             ng-show="selectedGoods=='all' || selectedGoods==goods.code">
+            <div class="panel-heading"><strong>{{goods.name}}</strong></div>
 
             <div class="panel-body">
                 <table class="table">
@@ -78,21 +85,28 @@
                     <tr>
                         <th>Destination</th>
                         <th>Agreement visas required</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="rule in agreementRule.rules"
-                        ng-click="agreementRules.selectRule(rule.destinationCode, agreementRule.code)">
-                        <td>{{rule.destinationLabel}}</td>
-                        <td ng-show="rule.allowed">
-                            <span ng-repeat="visa in rule.visas">
-                                <span class="label label-default">{{visa.departmentLabel}} - {{visa.seniority}}</span>
+                    <tr ng-repeat="destination in agreementRules.destinations"
+                        ng-click="agreementRules.selectRule(destination.code, goods.code)">
+                        <td>{{destination.name}}</td>
+                        <td ng-if="agreementRules.getRule(destination.code, goods.code).allowed">
+                            <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).agreementVisas">
+                                <span class="label label-default">{{visa.departmentName}} - {{visa.seniority}}</span>
                                 <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
                                       ng-if="!$last"></span>
                             </span>
                         </td>
-                        <td ng-show="!rule.allowed">
+                        <td ng-if="!agreementRules.getRule(destination.code, goods.code).allowed">
                             <label class="label label-danger">Not allowed</label>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-sm"
+                                    ng-click="agreementRules.selectEmployee(destinationCode, goods.code)">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create/Edit
+                            </button>
                         </td>
                     </tr>
                     </tbody>

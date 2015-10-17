@@ -7,10 +7,11 @@
 
     <br/>
 
-    <div class="panel panel-info">
+    <div ng-class="panelStyle">
 
         <div class="panel-heading">
-            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+            <span class="large" ng-show="!agreementRule.editedRule.allowed">
+                <mark><strong>[BANNED]</strong></mark></span>
             Agreement rule for <strong>{{destination.name}}</strong> / <strong>{{goods.name}}</strong>
         </div>
 
@@ -20,9 +21,12 @@
                  ng-show="agreementRule.editionMode">
                 <div class="col-xs-12 col-md-2"><p class="text-right">Creation :</p></div>
                 <div class="col-xs-12 col-md-4"><label>
-                    {{agreementRule.editedRule.creationDate}} by John STEVENSON</label></div>
+                    {{agreementRule.editedRule.creationDate}} by
+                    {{agreementRule.editedRule.creationUser}}</label></div>
                 <div class="col-xs-12 col-md-2"><p class="text-right">Last update :</p></div>
-                <div class="col-xs-12 col-md-4"><label>03/01/2016 09:45 by John STEVENSON</label></div>
+                <div class="col-xs-12 col-md-4"><label>
+                    {{agreementRule.editedRule.updateDate}} by
+                    {{agreementRule.editedRule.updateUser}}</label></div>
             </div>
 
             <br/>
@@ -48,16 +52,24 @@
                                             ng-required="true"></select>
                                     &nbsp;&nbsp;
                                     Seniority :
-                                    <input type="number" class="form-control" min="0" max="100" value="{{visa.seniority}}">
+                                    <input type="number" class="form-control" min="0" max="100"
+                                           value="{{visa.seniority}}"
+                                            ng-required="true">
                                     &nbsp;&nbsp;
                                     <div class="btn-group" role="group" aria-label="">
-                                        <button type="button" class="btn btn-default" ng-show="!$first">
+                                        <button type="button" class="btn btn-default"
+                                                ng-show="!$first"
+                                                ng-click="agreementRule.moveVisaLeft($index)">
                                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                                         </button>
-                                        <button type="button" class="btn btn-default" ng-show="!$last">
+                                        <button type="button" class="btn btn-default"
+                                                ng-show="!$last"
+                                                ng-click="agreementRule.moveVisaRight($index)">
                                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                         </button>
-                                        <button type="button" class="btn btn-default">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="agreementRule.removeVisa($index)"
+                                                ng-show="agreementRule.editedRule.agreementVisas.length>1">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button>
                                     </div>
@@ -68,7 +80,8 @@
 
                     <tr>
                         <td>&nbsp;</td>
-                        <td><button type="button" class="btn btn-default">
+                        <td><button type="button" class="btn btn-default"
+                                ng-click="agreementRule.addVisa()">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             &nbsp;Add a visa
                         </button></td>
@@ -76,6 +89,33 @@
 
                 </tbody>
             </table>
+
+            <br/>
+
+            <!-- Buttons CANCEL and SAVE -->
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12"><p class="text-center">
+                    <a class="btn btn-primary" href="rule.html" role="button"
+                            ng-click="agreementRule.cancel()">Cancel</a>
+                    <a class="btn btn-danger" href="rule_banned.html" role="button"
+                            ng-show="agreementRule.editedRule.allowed"
+                            ng-click="agreementRule.ban()">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Ban it !
+                    </a>
+                    <a class="btn btn-danger" href="rule.html" role="button"
+                       ng-show="!agreementRule.editedRule.allowed"
+                       ng-click="agreementRule.unban()">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Unban it
+                    </a>
+                    <button type="submit" class="btn btn-success"
+                            ng-click="agreementRule.save()">
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save</button>
+                </p>
+                </div>
+            </div>
 
         </div>
 

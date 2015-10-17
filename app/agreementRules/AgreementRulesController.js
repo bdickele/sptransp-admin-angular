@@ -10,20 +10,20 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
     $scope.selectedGoods = "all";
     $scope.displayMode = "";
 
-    agreementRules.availableDestinations = [];
+    // Map -> Key = destinationCode#goodsCode, Value = agreement rule
+    agreementRules.mapRules = [];
+
+    agreementRules.destinations = [];
+    agreementRules.destinationsForSelect = [];
     // Key = destination code, Value = destination label
     agreementRules.mapDestination = {};
 
-    agreementRules.availableGoods = [];
+    agreementRules.goods = [];
+    agreementRules.goodsForSelect = [];
     // Key = goods code, Value = destination label
     agreementRules.mapGoods = {};
 
     agreementRules.availableDepartments = [];
-    // Key = department code, Value = department label
-    agreementRules.mapDepartments = {};
-
-    agreementRules.rulesPerDestination = [];
-    agreementRules.rulesPerGoods = [];
 
 
     $scope.selectDisplayMode = function(value) {
@@ -33,6 +33,27 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
     agreementRules.selectRule = function(destinationCode, goodsCode) {
         var destination = AgreementRulesModel.getUrl() + destinationCode.toLowerCase() + "/" + goodsCode.toLowerCase();
         $location.path(destination);
+    };
+
+    agreementRules.getRule = function(destinationCode, goodsCode) {
+        var key = destinationCode + '#' + goodsCode;
+        var rule = agreementRules.mapRules[key];
+
+        // If rule does not exist we create a new one
+        if (rule==null) {
+            var newRule = {
+                destinationCode: destinationCode,
+                destinationName: agreementRules.mapDestination[destinationCode],
+                goodsCode: goodsCode,
+                goodsName: agreementRules.mapGoods[goodsCode],
+                allowed: true,
+                agreementVisas: []
+            };
+            agreementRules.mapRules[key] = newRule;
+            return newRule;
+        } else {
+            return rule;
+        }
     };
 
     agreementRules.fromListToMapCodeLabel = function(map, list) {
@@ -45,7 +66,8 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
     agreementRules.getAvailableDestinations = function() {
         MainModel.getAvailableDestinations().then(function(result) {
             agreementRules.fromListToMapCodeLabel(agreementRules.mapDestination, result);
-            agreementRules.availableDestinations = [{code: 'all', name: '--- ALL ---'}].concat(result);
+            agreementRules.destinations = result;
+            agreementRules.destinationsForSelect = [{code: 'all', name: '--- ALL ---'}].concat(result);
             agreementRules.getAvailableGoods();
         });
     };
@@ -53,97 +75,32 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
     agreementRules.getAvailableGoods = function() {
         MainModel.getAvailableGoods().then(function(result) {
             agreementRules.fromListToMapCodeLabel(agreementRules.mapGoods, result);
-            agreementRules.availableGoods = [{code: 'all', name: '--- ALL ---'}].concat(result);
+            agreementRules.goods = result;
+            agreementRules.goodsForSelect = [{code: 'all', name: '--- ALL ---'}].concat(result);
             agreementRules.getAvailableDepartments();
         });
     };
 
     agreementRules.getAvailableDepartments = function() {
         MainModel.getAvailableDepartments().then(function(result) {
-            agreementRules.fromListToMapCodeLabel(agreementRules.mapDepartments, result);
             agreementRules.getRules();
         });
     };
 
     agreementRules.getRules = function() {
         AgreementRulesModel.getAgreementRules().then(function(result) {
-            //$log.debug(result);
             agreementRules.treatRules(result);
         });
     };
 
     agreementRules.treatRules = function(rules) {
-        var rulesPerDestinationMap = [];
-        var rulesPerGoodsMap = [];
-
         for (var i=0; i<rules.length; i++) {
             var rule = rules[i];
-
-            var destinationCode = rule.destinationCode;
-            var destinationLabel = agreementRules.mapDestination[destinationCode];
-            var goodsCode = rule.goodsCode;
-            var goodsLabel = agreementRules.mapGoods[goodsCode];
-            var requestAllowed = rule.allowed;
-
-            if (!rulesPerDestinationMap[destinationCode]) {
-                rulesPerDestinationMap[destinationCode] = {
-                    code : destinationCode,
-                    label : destinationLabel,
-                    rules : []
-                };
-            }
-
-            if (!rulesPerGoodsMap[goodsCode]) {
-                rulesPerGoodsMap[goodsCode] = {
-                    code : goodsCode,
-                    label : goodsLabel,
-                    rules : []
-                };
-            }
-
-            var goodsRule = {
-                goodsCode : goodsCode,
-                goodsLabel : goodsLabel,
-                allowed: requestAllowed,
-                visas : []
-            };
-
-            var destinationRule = {
-                destinationCode : destinationCode,
-                destinationLabel : destinationLabel,
-                allowed: requestAllowed,
-                visas : []
-            };
-
-            if (rule.agreementVisas) {
-                for (var j=0; j<rule.agreementVisas.length; j++) {
-                    var agreementVisa = rule.agreementVisas[j];
-                    var visa = {
-                        departmentCode: agreementVisa.departmentCode,
-                        departmentLabel : agreementRules.mapDepartments[agreementVisa.departmentCode],
-                        seniority : agreementVisa.seniority
-                    };
-
-                    goodsRule.visas.push(visa);
-                    destinationRule.visas.push(visa);
-                }
-            }
-
-            rulesPerDestinationMap[destinationCode].rules.push(goodsRule);
-            rulesPerGoodsMap[goodsCode].rules.push(destinationRule);
-        }
-
-        for (var destination in rulesPerDestinationMap) {
-            agreementRules.rulesPerDestination.push(rulesPerDestinationMap[destination]);
-        }
-
-        for (var goods in rulesPerGoodsMap) {
-            agreementRules.rulesPerGoods.push(rulesPerGoodsMap[goods]);
+            var key = rule.destinationCode + '#' + rule.goodsCode;
+            agreementRules.mapRules[key] = rule;
         }
 
         $scope.selectDisplayMode('destination');
-        //$log.debug(agreementRules.rulesPerDestination);
-        //$log.debug(agreementRules.rulesPerGoods);
     };
 
     agreementRules.getAvailableDestinations();
