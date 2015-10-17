@@ -22,13 +22,13 @@ head.load(
     { file: 'employees/Employees.js' },
     { file: 'employees/EmployeesController.js' },
     { file: 'employees/EmployeesModel.js' },
-    { file: 'employeeForm/EmployeeForm.js' },
-    { file: 'employeeForm/EmployeeFormController.js' },
-    { file: 'employeeForm/EmployeeFormModel.js' },
+    { file: 'employee/Employee.js' },
+    { file: 'employee/EmployeeController.js' },
+    { file: 'employee/EmployeeModel.js' },
     { file: 'customers/Customers.js' },
     { file: 'customers/CustomersController.js' },
     { file: 'customers/CustomersModel.js' },
-    { file: 'customerForm/CustomerForm.js' },
-    { file: 'customerForm/CustomerFormController.js' },
-    { file: 'customerForm/CustomerFormModel.js' }
+    { file: 'customer/Customer.js' },
+    { file: 'customer/CustomerController.js' },
+    { file: 'customer/CustomerModel.js' }
 );

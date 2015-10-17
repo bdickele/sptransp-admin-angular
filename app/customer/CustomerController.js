@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('SpTransp.CustomerForm')
-    .controller('CustomerFormCtrl', CustomerFormCtrl);
+angular.module('SpTransp.Customer')
+    .controller('CustomerCtrl', CustomerCtrl);
 
-function CustomerFormCtrl($log, $routeParams, $location, CustomerFormModel, CustomersModel) {
+function CustomerCtrl($log, $routeParams, $location, CustomerModel, CustomersModel) {
     var customer = this;
     var customerUid = $routeParams['uid'];
 
@@ -23,7 +23,7 @@ function CustomerFormCtrl($log, $routeParams, $location, CustomerFormModel, Cust
     };
 
     customer.retrieveCustomer = function() {
-        CustomerFormModel.getCustomer(customerUid)
+        CustomerModel.getCustomer(customerUid)
             .then(function(result) {
                 customer.currentCustomer = result.data;
                 customer.editedCustomer = angular.copy(customer.currentCustomer);
@@ -46,7 +46,7 @@ function CustomerFormCtrl($log, $routeParams, $location, CustomerFormModel, Cust
     };
 
     customer.update = function() {
-        CustomerFormModel.updateCustomer(customerUid, customer.editedCustomer)
+        CustomerModel.updateCustomer(customerUid, customer.editedCustomer)
             .then(function (result) {
                 $location.path(CustomersModel.getUrl());
             }, function (reason) {
@@ -55,7 +55,7 @@ function CustomerFormCtrl($log, $routeParams, $location, CustomerFormModel, Cust
     }
 
     customer.create = function(addAnotherOne) {
-        CustomerFormModel.createCustomer(customer.editedCustomer)
+        CustomerModel.createCustomer(customer.editedCustomer)
             .then(function (result) {
                 if (!addAnotherOne) {
                     $location.path(CustomersModel.getUrl());

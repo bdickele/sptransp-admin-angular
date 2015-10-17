@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module("SpTransp.CustomerForm")
-    .service("CustomerFormModel", CustomerFormModel);
+angular.module("SpTransp.Customer")
+    .service("CustomerModel", CustomerModel);
 
-function CustomerFormModel($log, $http, EndpointConfigService, UtilsService) {
+function CustomerModel($http, EndpointConfigService) {
     var model = this,
         URL = "customers/";
 

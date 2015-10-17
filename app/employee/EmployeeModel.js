@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module("SpTransp.EmployeeForm")
-    .service("EmployeeFormModel", EmployeeFormModel);
+angular.module("SpTransp.Employee")
+    .service("EmployeeModel", EmployeeModel);
 
-function EmployeeFormModel($log, $http, EndpointConfigService, UtilsService) {
+function EmployeeModel($log, $http, EndpointConfigService, UtilsService) {
     var model = this,
         URL = "employees/";
 

@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('SpTransp.EmployeeForm')
-    .controller('EmployeeFormCtrl', EmployeeFormCtrl);
+angular.module('SpTransp.Employee')
+    .controller('EmployeeCtrl', EmployeeCtrl);
 
-function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeFormModel, EmployeesModel) {
+function EmployeeCtrl($log, $routeParams, $location, MainModel, EmployeeModel, EmployeesModel) {
     var employee = this;
 
     employee.employeeUid = $routeParams['uid'];
@@ -27,7 +27,7 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     };
 
     employee.getEmployeeProfiles = function() {
-        EmployeeFormModel.getEmployeeProfiles().then(function(result) {
+        EmployeeModel.getEmployeeProfiles().then(function(result) {
             employee.availableProfiles = result;
         });
     };
@@ -42,7 +42,7 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     };
 
     employee.retrieveEmployee = function() {
-        EmployeeFormModel.getEmployee(employee.employeeUid)
+        EmployeeModel.getEmployee(employee.employeeUid)
             .then(function(result) {
                 employee.currentEmployee = result.data;
                 employee.editedEmployee = angular.copy(employee.currentEmployee);
@@ -65,7 +65,7 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     };
 
     employee.update = function() {
-        EmployeeFormModel.updateEmployee(employee.employeeUid, employee.editedEmployee)
+        EmployeeModel.updateEmployee(employee.employeeUid, employee.editedEmployee)
             .then(function (result) {
                 $location.path(EmployeesModel.getUrl());
             }, function (reason) {
@@ -74,7 +74,7 @@ function EmployeeFormCtrl($log, $routeParams, $location, MainModel, EmployeeForm
     }
 
     employee.create = function(addAnotherOne) {
-        EmployeeFormModel.createEmployee(employee.editedEmployee)
+        EmployeeModel.createEmployee(employee.editedEmployee)
             .then(function (result) {
                 if (!addAnotherOne) {
                     $location.path(EmployeesModel.getUrl());
