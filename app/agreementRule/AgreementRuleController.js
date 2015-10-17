@@ -3,13 +3,14 @@
 angular.module('SpTransp.AgreementRule')
     .controller('AgreementRuleCtrl', AgreementRuleCtrl);
 
-function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleModel) {
+function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleModel, MainModel) {
     var agreementRule = this;
 
     agreementRule.editedRule = {};
     agreementRule.rule = null;
     agreementRule.creationMode = false;
     agreementRule.editionMode = false;
+    agreementRule.departments = [];
 
     $scope.destination = {
         code: $routeParams['destinationCode'].toUpperCase(),
@@ -77,9 +78,16 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         agreementRule.selectRule(rule, false);
     };
 
+    agreementRule.getDepartments = function() {
+        MainModel.getAvailableDepartments().then(function(result) {
+           agreementRule.departments = result;
+        });
+    };
+
     agreementRule.redirectToRuleList = function() {
         $location.path('agreementRules/');
     };
 
+    agreementRule.getDepartments();
     agreementRule.getRule($scope.destination.code, $scope.goods.code);
 }

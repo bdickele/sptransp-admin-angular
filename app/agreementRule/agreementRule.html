@@ -1,8 +1,82 @@
 
-    <h3 ng-show="agreementRule.editionMode"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-        Agreement rule for destination '{{destination.name}}' and goods '{{goods.name}}'</h3>
+    <h3 ng-show="agreementRule.editionMode"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+        Edition of agreement rule</h3>
 
-    <h3 ng-show="agreementRule.creationMode"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-        New agreement rule for destination '{{destination.name}}' and goods '{{goods.name}}'</h3>
+    <h3 ng-show="agreementRule.creationMode"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+        Creation of agreement rule</h3>
 
     <br/>
+
+    <div class="panel panel-info">
+
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+            Agreement rule for <strong>{{destination.name}}</strong> / <strong>{{goods.name}}</strong>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row"
+                 ng-show="agreementRule.editionMode">
+                <div class="col-xs-12 col-md-2"><p class="text-right">Creation :</p></div>
+                <div class="col-xs-12 col-md-4"><label>
+                    {{agreementRule.editedRule.creationDate}} by John STEVENSON</label></div>
+                <div class="col-xs-12 col-md-2"><p class="text-right">Last update :</p></div>
+                <div class="col-xs-12 col-md-4"><label>03/01/2016 09:45 by John STEVENSON</label></div>
+            </div>
+
+            <br/>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Required visa</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="visa in agreementRule.editedRule.agreementVisas">
+                        <td>{{$index + 1}}</td>
+                        <td>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    Department :
+                                    <select class="form-control" id="inputDepartment"
+                                            ng-model="visa.departmentCode"
+                                            ng-options="department.code as department.name for department in agreementRule.departments"
+                                            ng-required="true"></select>
+                                    &nbsp;&nbsp;
+                                    Seniority :
+                                    <input type="number" class="form-control" min="0" max="100" value="{{visa.seniority}}">
+                                    &nbsp;&nbsp;
+                                    <div class="btn-group" role="group" aria-label="">
+                                        <button type="button" class="btn btn-default" ng-show="!$first">
+                                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" ng-show="!$last">
+                                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            &nbsp;Add a visa
+                        </button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
