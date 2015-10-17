@@ -44,7 +44,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="rule in agreementRule.rules">
+                    <tr ng-repeat="rule in agreementRule.rules"
+                        ng-click="agreementRules.selectRule(agreementRule.code, rule.goodsCode)">
                         <td>{{rule.goodsLabel}}</td>
                         <td ng-show="rule.allowed">
                             <span ng-repeat="visa in rule.visas">
@@ -80,7 +81,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="rule in agreementRule.rules">
+                    <tr ng-repeat="rule in agreementRule.rules"
+                        ng-click="agreementRules.selectRule(rule.destinationCode, agreementRule.code)">
                         <td>{{rule.destinationLabel}}</td>
                         <td ng-show="rule.allowed">
                             <span ng-repeat="visa in rule.visas">

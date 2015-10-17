@@ -5,9 +5,10 @@ var myModule = angular.module('SpTransp', [
     'ngRoute',
     'SpTransp.Login',
     'SpTransp.Common',
+    'SpTransp.AgreementRule',
     'SpTransp.AgreementRules',
-    'SpTransp.Employees',
     'SpTransp.Employee',
+    'SpTransp.Employees',
     'SpTransp.Customers',
     'SpTransp.Customer'
 ]);
@@ -25,6 +26,12 @@ myModule.config(function($routeProvider, $httpProvider) {
             templateUrl: 'agreementRules/agreementRules.html',
             controller: 'AgreementRulesCtrl',
             controllerAs: 'agreementRules',
+            requiresLogin: false
+        })
+        .when('/agreementRules/:destinationCode/:goodsCode', {
+            templateUrl: 'agreementRule/agreementRule.html',
+            controller: 'AgreementRuleCtrl',
+            controllerAs: 'agreementRule',
             requiresLogin: false
         })
         .when('/employees', {

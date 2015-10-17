@@ -3,10 +3,9 @@
 angular.module('SpTransp.AgreementRules')
     .controller('AgreementRulesCtrl', AgreementRulesCtrl);
 
-function AgreementRulesCtrl($log, $scope, AgreementRulesModel, MainModel) {
+function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainModel) {
     var agreementRules = this;
 
-    // destination or goods
     $scope.selectedDestination = "all";
     $scope.selectedGoods = "all";
     $scope.displayMode = "";
@@ -29,6 +28,11 @@ function AgreementRulesCtrl($log, $scope, AgreementRulesModel, MainModel) {
 
     $scope.selectDisplayMode = function(value) {
         $scope.displayMode = value;
+    };
+
+    agreementRules.selectRule = function(destinationCode, goodsCode) {
+        var destination = AgreementRulesModel.getUrl() + destinationCode.toLowerCase() + "/" + goodsCode.toLowerCase();
+        $location.path(destination);
     };
 
     agreementRules.fromListToMapCodeLabel = function(map, list) {
