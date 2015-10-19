@@ -3,7 +3,7 @@
 angular.module('SpTransp.AgreementRule')
     .controller('AgreementRuleCtrl', AgreementRuleCtrl);
 
-function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleModel, MainModel) {
+function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleModel, AgreementRulesModel, MainModel) {
     var agreementRule = this;
 
     agreementRule.editedRule = {};
@@ -29,7 +29,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         agreementRule.creationMode = !editionMode;
         agreementRule.rule = rule;
         agreementRule.editedRule = angular.copy(agreementRule.rule);
-        if (!rule.allowed) $scope.panelStyle = 'panel panel-danger';
+        if (!rule.reqAllowed) $scope.panelStyle = 'panel panel-danger';
     };
 
     agreementRule.getRule = function(destinationCode, goodsCode) {
@@ -37,7 +37,6 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         // - either that that rule does not exist yet for that destination and goods => we switch to creation mode
         // - or goods code or destination code is incorrect
         AgreementRuleModel.getAgreementRule(destinationCode, goodsCode).then(function(result) {
-                $log.debug("Found a rule", result);
                 var rule = result.data;
                 $scope.destination.name = rule.destinationName;
                 $scope.goods.name = rule.goodsName;
@@ -51,7 +50,6 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
 
     agreementRule.checkDestinationCode = function(destinationCode) {
         AgreementRuleModel.getDestination(destinationCode).then(function(result) {
-            $log.debug("Destination is OK : " + result.data.name);
             $scope.destination.name = result.data.name;
             agreementRule.checkGoodsCode($scope.goods.code);
         }, function(reason) {
@@ -61,7 +59,6 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
 
     agreementRule.checkGoodsCode = function(goodsCode) {
         AgreementRuleModel.getGoods(goodsCode).then(function(result) {
-            $log.debug("Goods is OK : " + result.data.name);
             $scope.goods.name = result.data.name;
             agreementRule.createBlankRule($scope.destination, $scope.goods);
         }, function(reason) {
@@ -75,7 +72,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
             destinationName: destination.name,
             goodsCode : goods.code,
             goodsName: goods.name,
-            allowed: true,
+            reqAllowed: true,
             agreementVisas: []
         };
         agreementRule.selectRule(rule, false);
@@ -156,4 +153,30 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     // Methods to cancel, save, ban or unban agreement rule
     // ========================================================================
 
+    agreementRule.copyEditedRule = function() {
+        var fields = ['destinationCode', 'goodsCode', 'reqAllowed', 'agreementVisas'];
+
+        fields.forEach(function (field) {
+            //console.log(field + ' > ' + agreementRule.editedRule[field]);
+            agreementRule.rule[field] = agreementRule.editedRule[field];
+        });
+    }
+
+    agreementRule.create = function() {
+        agreementRule.copyEditedRule();
+        AgreementRuleModel.createRule(agreementRule.rule).then(function (result) {
+            $location.path(AgreementRulesModel.getUrl());
+        }, function (reason) {
+            $log.error('Could not create rule', reason);
+        });
+    }
+
+    agreementRule.update = function() {
+        agreementRule.copyEditedRule();
+        AgreementRuleModel.updateRule(agreementRule.rule).then(function (result) {
+            $location.path(AgreementRulesModel.getUrl());
+        }, function (reason) {
+            $log.error('Could not update rule', reason);
+        });
+    };
 }

@@ -10,7 +10,7 @@
     <div ng-class="panelStyle">
 
         <div class="panel-heading">
-            <span class="large" ng-show="!agreementRule.editedRule.allowed">
+            <span class="large" ng-show="!agreementRule.rule.reqAllowed">
                 <mark><strong>[BANNED]</strong></mark></span>
             Agreement rule for <strong>{{destination.name}}</strong> / <strong>{{goods.name}}</strong>
         </div>
@@ -27,6 +27,13 @@
                 <div class="col-xs-12 col-md-4"><label>
                     {{agreementRule.editedRule.updateDate}} by
                     {{agreementRule.editedRule.updateUser}}</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-2"><p class="text-right">Allowed :</p></div>
+                <div class="col-xs-12 col-md-4">
+                    <input type="checkbox" ng-model="agreementRule.editedRule.reqAllowed">
+                </div>
             </div>
 
             <br/>
@@ -53,8 +60,8 @@
                                     &nbsp;&nbsp;
                                     Seniority :
                                     <input type="number" class="form-control" min="0" max="100"
-                                           value="{{visa.seniority}}"
-                                            ng-required="true">
+                                           ng-model="visa.seniority"
+                                           ng-required="true">
                                     &nbsp;&nbsp;
                                     <div class="btn-group" role="group" aria-label="">
                                         <button type="button" class="btn btn-default"
@@ -96,22 +103,15 @@
 
             <div class="row">
                 <div class="col-xs-12 col-md-12"><p class="text-center">
-                    <a class="btn btn-primary" href="rule.html" role="button"
+                    <a class="btn btn-primary" href="#/agreementRules" role="button"
                             ng-click="agreementRule.cancel()">Cancel</a>
-                    <a class="btn btn-danger" href="rule_banned.html" role="button"
-                            ng-show="agreementRule.editedRule.allowed"
-                            ng-click="agreementRule.ban()">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        Ban it !
-                    </a>
-                    <a class="btn btn-danger" href="rule.html" role="button"
-                       ng-show="!agreementRule.editedRule.allowed"
-                       ng-click="agreementRule.unban()">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        Unban it
-                    </a>
                     <button type="submit" class="btn btn-success"
-                            ng-click="agreementRule.save()">
+                            ng-if="agreementRule.creationMode"
+                            ng-click="agreementRule.create()">
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Create</button>
+                    <button type="submit" class="btn btn-success"
+                            ng-if="agreementRule.editionMode"
+                            ng-click="agreementRule.update()">
                         <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Save</button>
                 </p>
                 </div>

@@ -46,7 +46,7 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
                 destinationName: agreementRules.mapDestination[destinationCode],
                 goodsCode: goodsCode,
                 goodsName: agreementRules.mapGoods[goodsCode],
-                allowed: true,
+                reqAllowed: true,
                 agreementVisas: []
             };
             agreementRules.mapRules[key] = newRule;

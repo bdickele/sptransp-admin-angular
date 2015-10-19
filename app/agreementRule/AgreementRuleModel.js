@@ -21,4 +21,12 @@ function AgreementRuleModel($http, AgreementRulesModel, EndpointConfigService, U
         return $http.get(EndpointConfigService.getUrl(
             "goods/" + goodsCode + "/" + EndpointConfigService.getCurrentFormat()));
     };
+
+    model.updateRule = function(rule) {
+        return $http.put(EndpointConfigService.getUrl(URL), rule);
+    };
+
+    model.createRule = function(rule) {
+        return $http.post(EndpointConfigService.getUrl(URL), rule);
+    };
 };
