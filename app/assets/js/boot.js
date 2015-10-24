@@ -33,5 +33,12 @@ head.load(
     { file: 'customers/CustomersModel.js' },
     { file: 'customer/Customer.js' },
     { file: 'customer/CustomerController.js' },
-    { file: 'customer/CustomerModel.js' }
+    { file: 'customer/CustomerModel.js' },
+    { file: 'requests/Requests.js' },
+    { file: 'requests/RequestsController.js' },
+    { file: 'requests/RequestsModel.js' },
+    { file: 'request/Request.js' },
+    { file: 'request/RequestController.js' },
+    { file: 'request/RequestModel.js' }
+
 );

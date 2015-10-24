@@ -1,0 +1,95 @@
+    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Request</h3><br/>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Reference : <strong>{{request.request.reference}}</strong>
+            <div class="pull-right">Overall status :
+                <!--TODO le style du span change avec le status -->
+                <span class="label label-primary text-uppercase">{{request.request.overallStatusLabel}}</span></div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <label>Customer : </label> {{request.request.customerName}} ({{request.request.customerUid}})
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <label>Request date : </label> {{request.request.creationDate}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <label>From > To : </label> {{request.request.departureName}} > {{request.request.arrivalName}}
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <label>Goods : </label> {{request.request.goodsName}}
+                </div>
+            </div>
+            <div class="row" ng-if="request.request.overallStatusCode=='WV'">
+                <div class="col-xs-12 col-md-12">
+                    <label>Remaining visas : </label>
+                    <span ng-repeat="visa in request.request.remainingVisas">
+                        <span class="label label-default">{{visa.departmentName}} - {{visa.seniority}}</span>
+                        <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
+                                ng-if="!$last"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details of Agreement process -->
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">Agreement process
+            <!--TODO le style du span change avec le status -->
+            <div class="pull-right">Agreement status : <span class="label label-primary">
+                {{request.request.agreementStatusLabel}}
+            </span></div>
+        </div>
+
+        <div class="panel-body">
+            <dl class="dl-horizontal" ng-repeat="visa in request.request.appliedAgreementVisas">
+                <dt>{{visa.date}}</dt>
+                <dd>
+                    <label>Visa "{{visa.departmentLabel}} - {{visa.seniority}}"
+                        <span class="label label-success" ng-if="visa.statusCode=='G'">Granted</span>
+                        <span class="label label-danger" ng-if="visa.statusCode=='D'">Refused</span>
+                        by {{visa.employeeName}}</label>
+                    <br/>
+                    <small>{{visa.comment}}</small>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt></dt>
+                <dd>
+                    <p class="text-center">
+                        Who are you supposed to be ?
+                        <select id="inputEmployee"
+                                ng-model="request.selectedEmployee"
+                                ng-options="employee as
+                                    employee.fullName + ' - ' + employee.departmentLabel + '/' + employee.seniority
+                                    for employee in request.employees"
+                                ng->
+                        </select>
+                    </p>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal"
+                    ng-if="request.request.overallStatusCode=='WV'
+                        && request.selectedEmployee.departmentCode==request.request.nextExpectedAgreementVisa.departmentCode
+                        && request.selectedEmployee.seniority>=request.request.nextExpectedAgreementVisa.seniority">
+                <dt></dt>
+                <dd>
+                    <p class="text-center">
+                        <a class="btn btn-success" href role="button" ng-click="request.grantVisa()">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Grant your visa</a>
+                        <a class="btn btn-danger" href role="button" ng-click="request.denyVisa()">
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Deny your visa</a>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+
+    </div>

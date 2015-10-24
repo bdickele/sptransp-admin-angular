@@ -12,6 +12,9 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     agreementRule.editionMode = false;
     agreementRule.departments = [];
 
+    $scope.showOverallErrorMsg = false;
+    $scope.saveErrorMsg = "";
+
     $scope.panelStyle = "panel panel-info";
 
     $scope.destination = {
@@ -165,8 +168,12 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     agreementRule.create = function() {
         agreementRule.copyEditedRule();
         AgreementRuleModel.createRule(agreementRule.rule).then(function (result) {
+            $scope.showOverallErrorMsg = false;
+            $scope.saveErrorMsg = "";
             $location.path(AgreementRulesModel.getUrl());
         }, function (reason) {
+            $scope.showOverallErrorMsg = true;
+            $scope.saveErrorMsg = "Could not create rule: " + reason.statusText;
             $log.error('Could not create rule', reason);
         });
     }
@@ -174,8 +181,12 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     agreementRule.update = function() {
         agreementRule.copyEditedRule();
         AgreementRuleModel.updateRule(agreementRule.rule).then(function (result) {
+            $scope.showOverallErrorMsg = false;
+            $scope.saveErrorMsg = "";
             $location.path(AgreementRulesModel.getUrl());
         }, function (reason) {
+            $scope.showOverallErrorMsg = true;
+            $scope.saveErrorMsg = "Could not update rule: " + reason.statusText;
             $log.error('Could not update rule', reason);
         });
     };

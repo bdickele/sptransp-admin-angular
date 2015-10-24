@@ -7,6 +7,10 @@
 
     <br/>
 
+    <div class="alert alert-danger" ng-if="showOverallErrorMsg">
+        {{saveErrorMsg}}
+    </div>
+
     <div ng-class="panelStyle">
 
         <div class="panel-heading">

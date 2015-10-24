@@ -1,0 +1,31 @@
+    <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span> {{title}}</h3><br/>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr class="info">
+            <th>Reference</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Goods</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Agreement</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="request in requests.requests">
+            <td scope="row"><a href ng-click="requests.selectRequest(request.reference)">{{request.reference}}</a></td>
+            <td>{{request.creationDate}}</td>
+            <td>{{request.customerName}} ({{request.customerUid}})</td>
+            <td>{{request.goodsName}}</td>
+            <td>{{request.departureName}}</td>
+            <td>{{request.arrivalName}}</td>
+            <td>{{request.agreementStatusName}}
+                <span ng-if="request.agreementStatusCode!='P'">{{request.agreementStatusLabel}}</span>
+                <span ng-if="request.agreementStatusCode=='P'">{{request.agreementStatusLabel}} - Waiting for
+                    "{{request.nextExpectedAgreementVisa.departmentName}} -
+                    {{request.nextExpectedAgreementVisa.seniority}}"</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
