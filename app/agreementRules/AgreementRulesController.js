@@ -63,26 +63,26 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
         }
     };
 
-    agreementRules.getAvailableDestinations = function() {
-        MainModel.getAvailableDestinations().then(function(result) {
+    agreementRules.getDestinations = function() {
+        MainModel.getDestinations().then(function(result) {
             agreementRules.fromListToMapCodeLabel(agreementRules.mapDestination, result);
             agreementRules.destinations = result;
             agreementRules.destinationsForSelect = [{code: 'all', name: '--- ALL ---'}].concat(result);
-            agreementRules.getAvailableGoods();
+            agreementRules.getGoods();
         });
     };
 
-    agreementRules.getAvailableGoods = function() {
-        MainModel.getAvailableGoods().then(function(result) {
+    agreementRules.getGoods = function() {
+        MainModel.getGoods().then(function(result) {
             agreementRules.fromListToMapCodeLabel(agreementRules.mapGoods, result);
             agreementRules.goods = result;
             agreementRules.goodsForSelect = [{code: 'all', name: '--- ALL ---'}].concat(result);
-            agreementRules.getAvailableDepartments();
+            agreementRules.getDepartments();
         });
     };
 
-    agreementRules.getAvailableDepartments = function() {
-        MainModel.getAvailableDepartments().then(function(result) {
+    agreementRules.getDepartments = function() {
+        MainModel.getDepartments().then(function(result) {
             agreementRules.getRules();
         });
     };
@@ -103,5 +103,5 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
         $scope.selectDisplayMode('destination');
     };
 
-    agreementRules.getAvailableDestinations();
+    agreementRules.getDestinations();
 };

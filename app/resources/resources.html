@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-xs-12 col-md-10">
+        <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Destinations</h3>
+    </div>
+</div>
+
+<br/>
+
+<table class="table table-bordered">
+    <thead>
+    <tr class="info">
+        <th>Code</th>
+        <th>Name</th>
+        <th>Comment</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="destination in resources.destinations">
+        <td>{{destination.code}}</td>
+        <td>{{destination.name}}</td>
+        <td>{{destination.comment}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-xs-12 col-md-10">
+        <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Goods</h3>
+    </div>
+</div>
+
+<br/>
+
+<table class="table table-bordered">
+    <thead>
+    <tr class="info">
+        <th>Code</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="goods in resources.goods">
+        <td>{{goods.code}}</td>
+        <td>{{goods.name}}</td>
+    </tr>
+    </tbody>
+</table>

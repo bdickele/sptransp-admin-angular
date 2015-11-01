@@ -34,7 +34,7 @@
         <div class="panel panel-info"
              ng-repeat="destination in agreementRules.destinations"
              ng-show="selectedDestination=='all' || selectedDestination==destination.code">
-            <div class="panel-heading"><strong>{{destination.name}}</strong></div>
+            <div class="panel-heading"><strong>{{destination.name}} - {{destination.comment}}</strong></div>
 
             <div class="panel-body">
                 <table class="table">

@@ -12,7 +12,8 @@ var myModule = angular.module('SpTransp', [
     'SpTransp.Customers',
     'SpTransp.Customer',
     'SpTransp.Requests',
-    'SpTransp.Request'
+    'SpTransp.Request',
+    'SpTransp.Resources'
 ]);
 
 myModule.config(function($routeProvider, $httpProvider) {
@@ -70,6 +71,12 @@ myModule.config(function($routeProvider, $httpProvider) {
             templateUrl: 'customer/customer.html',
             controller: 'CustomerCtrl',
             controllerAs: 'customer',
+            requiresLogin: false
+        })
+        .when('/resources', {
+            templateUrl: 'resources/resources.html',
+            controller: 'ResourcesCtrl',
+            controllerAs: 'resources',
             requiresLogin: false
         })
         .otherwise({redirectTo: '/'});

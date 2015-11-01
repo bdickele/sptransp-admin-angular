@@ -39,6 +39,7 @@ head.load(
     { file: 'requests/RequestsModel.js' },
     { file: 'request/Request.js' },
     { file: 'request/RequestController.js' },
-    { file: 'request/RequestModel.js' }
-
+    { file: 'request/RequestModel.js' },
+    { file: 'resources/Resources.js' },
+    { file: 'resources/ResourcesController.js' }
 );

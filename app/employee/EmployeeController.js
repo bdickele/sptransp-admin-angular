@@ -20,8 +20,8 @@ function EmployeeCtrl($log, $routeParams, $location, MainModel, EmployeeModel, E
     if (employee.employeeUid == "new") employee.creationMode = true;
 
 
-    employee.getAvailableDepartments = function() {
-        MainModel.getAvailableDepartments().then(function(result) {
+    employee.getDepartments = function() {
+        MainModel.getDepartments().then(function(result) {
             employee.availableDepartments = result;
         });
     };
@@ -101,7 +101,7 @@ function EmployeeCtrl($log, $routeParams, $location, MainModel, EmployeeModel, E
         }
     };
 
-    employee.getAvailableDepartments();
+    employee.getDepartments();
     employee.getEmployeeProfiles();
 
     if (employee.creationMode) {

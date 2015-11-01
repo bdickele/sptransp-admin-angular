@@ -82,7 +82,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     };
 
     agreementRule.getDepartments = function() {
-        MainModel.getAvailableDepartments().then(function(result) {
+        MainModel.getDepartments().then(function(result) {
            agreementRule.departments = result;
         });
     };

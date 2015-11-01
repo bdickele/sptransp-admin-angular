@@ -5,7 +5,7 @@ angular.module("SpTransp.Common")
             GOODS = 'goods/',
             DESTINATIONS = 'destinations/';
 
-        model.getAvailableDepartments = function() {
+        model.getDepartments = function() {
             return $http
                 .get(EndpointConfigService.getUrl(DEPARTMENTS + EndpointConfigService.getCurrentFormat()))
                 .then(function(result) {
@@ -14,7 +14,7 @@ angular.module("SpTransp.Common")
             );
         }
 
-        model.getAvailableDestinations = function() {
+        model.getDestinations = function() {
             return $http
                 .get(EndpointConfigService.getUrl(DESTINATIONS + EndpointConfigService.getCurrentFormat()))
                 .then(function(result) {
@@ -23,7 +23,7 @@ angular.module("SpTransp.Common")
             );
         }
 
-        model.getAvailableGoods = function() {
+        model.getGoods = function() {
             return $http
                 .get(EndpointConfigService.getUrl(GOODS + EndpointConfigService.getCurrentFormat()))
                 .then(function(result) {
