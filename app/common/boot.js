@@ -40,6 +40,9 @@ head.load(
     { file: 'request/Request.js' },
     { file: 'request/RequestController.js' },
     { file: 'request/RequestModel.js' },
+    { file: 'requestCreation/RequestCreation.js' },
+    { file: 'requestCreation/RequestCreationController.js' },
+    { file: 'requestCreation/RequestCreationModel.js' },
     { file: 'resources/Resources.js' },
     { file: 'resources/ResourcesController.js' }
 );

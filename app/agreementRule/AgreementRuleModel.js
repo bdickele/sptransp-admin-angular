@@ -3,7 +3,7 @@
 angular.module('SpTransp.AgreementRule')
     .service('AgreementRuleModel', AgreementRuleModel);
 
-function AgreementRuleModel($http, AgreementRulesModel, EndpointConfigService, UtilsService) {
+function AgreementRuleModel($http, AgreementRulesModel, EndpointConfigService) {
     var model = this,
         URL = AgreementRulesModel.getUrl();
 

@@ -1,0 +1,68 @@
+<h3><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> New request</h3><br/>
+
+<form class="form-horizontal" name="newRequest.formRequest">
+
+    <div class="alert alert-danger" ng-if="showOverallErrorMsg">
+        {{saveErrorMsg}}
+    </div>
+
+    <div class="alert alert-danger" ng-if="showNotAllowedMsg">
+        Unfortunatly we can't currently send this type of goods to this place
+    </div>
+
+    <div class="form-group">
+        <label for="inputCustomer" class="col-sm-2 control-label">Customer</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inputCustomer" name="inputCustomer"
+                    ng-model="customerUid"
+                    ng-options="customer.uid as customer.fullName for customer in newRequest.customers">
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputDeparture" class="col-sm-2 control-label">Place of departure</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inputDeparture" name="inputDeparture"
+                    ng-model="departureCode"
+                    ng-options="destination.code as destination.name for destination in newRequest.departures"
+                    ng-required="true">
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputArrival" class="col-sm-2 control-label">Point of arrival</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inputArrival" name="inputArrival"
+                    ng-model="arrivalCode"
+                    ng-options="destination.code as destination.name for destination in newRequest.arrivals"
+                    ng-change="newRequest.checkIfRequestAllowed()"
+                    ng-required="true">
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputGoods" class="col-sm-2 control-label">Goods</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inputGoods" name="inputGoods"
+                    ng-model="goodsCode"
+                    ng-options="goods.code as goods.name for goods in newRequest.goods"
+                    ng-change="newRequest.checkIfRequestAllowed()"
+                    ng-required="true">
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-success"
+                    ng-disabled="!newRequest.formRequest.$valid || !requestAllowed"
+                    ng-click="newRequest.create()">
+                <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Create</button>
+        </div>
+    </div>
+
+</form>
