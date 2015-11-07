@@ -28,7 +28,23 @@ function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
         $location.path('request/' + requestReference);
     };
 
+    requests.isRequestWaitingForValidation = function(request) {
+        return request.agreementStatusCode=='P';
+    };
+
+    requests.getRowCssClass = function(request) {
+        var mapAgreementStatusCodeCssClass = {
+            'C' : '',
+            'P' : '',
+            'G' : '',
+            'R' : 'danger'
+        };
+
+        return mapAgreementStatusCodeCssClass[request.agreementStatusCode];
+    };
+
     if (requests.searchType == 'beingValidated') requests.getRequestsBeingValidated();
     else if (requests.searchType == 'grantedOrRefused') requests.getRequestsGrantedOrRefused();
+    else $location.path('requests/beingValidated');
 
 }

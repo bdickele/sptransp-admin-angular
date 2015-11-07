@@ -21,9 +21,9 @@ myModule.config(function($routeProvider, $httpProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: 'employees/employees.html',
-            controller: 'EmployeesCtrl',
-            controllerAs: 'employees',
+            templateUrl: 'requests/requests.html',
+            controller: 'RequestsCtrl',
+            controllerAs: 'requests',
             requiresLogin: false
         })
         .when('/requests/new', {
