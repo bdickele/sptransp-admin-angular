@@ -6,7 +6,11 @@ angular.module('SpTransp.Requests')
 function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
     var requests = this;
 
+    const TYPE_BEING_VALIDATED = 'beingValidated';
+    const TYPE_GRANTED_OR_REFUSED = 'grantedOrRefused';
+
     requests.searchType = $routeParams['searchType'];
+
     requests.requests = [];
     $scope.title = "";
 
@@ -21,6 +25,9 @@ function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
         $scope.title = "Requests granted or refused";
         RequestsModel.getRequestsGrantedOrRefused().then(function(result) {
             requests.requests = result;
+            requests.requests.sort(function(req1, req2) {
+                    return req2.updateDateForComparison - req1.updateDateForComparison;
+                });
         });
     };
 
@@ -43,8 +50,8 @@ function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
         return mapAgreementStatusCodeCssClass[request.agreementStatusCode];
     };
 
-    if (requests.searchType == 'beingValidated') requests.getRequestsBeingValidated();
-    else if (requests.searchType == 'grantedOrRefused') requests.getRequestsGrantedOrRefused();
-    else $location.path('requests/beingValidated');
+    if (requests.searchType == TYPE_BEING_VALIDATED) requests.getRequestsBeingValidated();
+    else if (requests.searchType == TYPE_GRANTED_OR_REFUSED) requests.getRequestsGrantedOrRefused();
+    else $location.path('requests/' + TYPE_BEING_VALIDATED);
 
 }

@@ -1,10 +1,11 @@
     <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span> {{title}}</h3><br/>
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped table-condensed">
         <thead>
         <tr class="info">
             <th>Reference</th>
-            <th>Date</th>
+            <th>Request date</th>
+            <th>Last modification</th>
             <th>Customer</th>
             <th>Goods</th>
             <th>Departure</th>
@@ -16,6 +17,7 @@
         <tr ng-repeat="request in requests.requests">
             <td scope="row"><a href ng-click="requests.selectRequest(request.reference)">{{request.reference}}</a></td>
             <td>{{request.creationDate}}</td>
+            <td>{{request.updateDate}}</td>
             <td>{{request.customerName}} ({{request.customerUid}})</td>
             <td>{{request.goodsName}}</td>
             <td>{{request.departureName}}</td>

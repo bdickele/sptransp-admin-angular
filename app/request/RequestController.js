@@ -3,7 +3,7 @@
 angular.module('SpTransp.Request')
     .controller('RequestCtrl', RequestCtrl);
 
-function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
+function RequestCtrl($log, $routeParams, $route, $scope, RequestModel) {
     var request = this;
 
     request.reference = $routeParams['reference'];
@@ -155,7 +155,7 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
         };
         RequestModel.grantOrDenyVisa(request.request.reference, visa)
             .then(function (result) {
-                $location.path('requests/beingValidated/');
+                $route.reload();
                 $scope.showSubmissionErrorMsg = false;
                 $scope.submissionErrorMsg = "";
             }, function (reason) {
