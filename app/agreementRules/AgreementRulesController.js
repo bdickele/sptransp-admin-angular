@@ -30,9 +30,8 @@ function AgreementRulesCtrl($log, $location, $scope, AgreementRulesModel, MainMo
         $scope.displayMode = value;
     };
 
-    agreementRules.selectRule = function(destinationCode, goodsCode) {
-        var destination = AgreementRulesModel.getUrl() + destinationCode.toLowerCase() + "/" + goodsCode.toLowerCase();
-        $location.path(destination);
+    agreementRules.ruleUrl = function(destinationCode, goodsCode) {
+        return AgreementRulesModel.getUrl() + destinationCode.toLowerCase() + "/" + goodsCode.toLowerCase();
     };
 
     agreementRules.getRule = function(destinationCode, goodsCode) {

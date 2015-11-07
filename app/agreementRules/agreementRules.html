@@ -43,11 +43,12 @@
                     <tr>
                         <th>Goods</th>
                         <th>Agreement visas required</th>
+                        <th ng-if="!agreementRules.getRule(destination.code, goods.code).reqAllowed"></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="goods in agreementRules.goods"
-                        ng-click="agreementRules.selectRule(destination.code, goods.code)">
+                    <tr ng-repeat="goods in agreementRules.goods">
                         <td>{{goods.name}}</td>
                         <td ng-if="agreementRules.getRule(destination.code, goods.code).reqAllowed">
                             <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).agreementVisas">
@@ -60,10 +61,8 @@
                             <label class="label label-danger">Not allowed</label>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-default btn-sm"
-                                    ng-click="agreementRules.selectEmployee(destinationCode, goods.code)">
-                                </span> Create/Edit
-                            </button>
+                            <a href="#{{agreementRules.ruleUrl(destination.code, goods.code)}}"
+                               class="btn btn-default btn-sm">Create/Edit</a>
                         </td>
                     </tr>
                     </tbody>
@@ -90,8 +89,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="destination in agreementRules.destinations"
-                        ng-click="agreementRules.selectRule(destination.code, goods.code)">
+                    <tr ng-repeat="destination in agreementRules.destinations">
                         <td>{{destination.name}}</td>
                         <td ng-if="agreementRules.getRule(destination.code, goods.code).reqAllowed">
                             <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).agreementVisas">
@@ -104,10 +102,8 @@
                             <label class="label label-danger">Not allowed</label>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-default btn-sm"
-                                    ng-click="agreementRules.selectEmployee(destinationCode, goods.code)">
-                                </span> Create/Edit
-                            </button>
+                            <a href="#{{agreementRules.ruleUrl(destination.code, goods.code)}}"
+                               class="btn btn-default btn-sm">Create/Edit</a>
                         </td>
                     </tr>
                     </tbody>
