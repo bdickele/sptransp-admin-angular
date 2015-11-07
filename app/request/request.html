@@ -47,45 +47,77 @@
         </div>
 
         <div class="panel-body">
-            <dl class="dl-horizontal" ng-repeat="visa in request.request.appliedAgreementVisas">
-                <dt>{{visa.date}}</dt>
-                <dd>
-                    <label>Visa "{{visa.departmentName}} - {{visa.seniority}}"
-                        <span class="label label-success" ng-if="request.isVisaGranted(visa)">Granted</span>
-                        <span class="label label-danger" ng-if="request.isVisaDenied(visa)">Refused</span>
-                        by {{visa.employeeName}}</label>
-                    <br/>
-                    <small>{{visa.comment}}</small>
-                </dd>
-            </dl>
 
-            <dl class="dl-horizontal" ng-if="requestIsWaitingForValidation">
-                <dt></dt>
-                <dd>
-                    <p class="text-center">
-                        Who are you supposed to be ?
-                        <select id="inputEmployee"
-                                ng-model="request.selectedEmployee"
-                                ng-options="employee as
-                                    employee.fullName + ' - ' + employee.departmentLabel + '/' + employee.seniority
-                                    for employee in request.employees">
-                        </select>
-                    </p>
-                </dd>
-            </dl>
+            <div class="alert alert-danger alert-dismissible" role="alert"
+                 ng-if="showSubmissionErrorMsg">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>An error occured!</strong> {{submissionErrorMsg}}
+            </div>
 
-            <dl class="dl-horizontal"
-                    ng-if="requestIsWaitingForValidation && request.selectedEmployeeCanGrantOrDenyNextVisa()">
-                <dt></dt>
-                <dd>
-                    <p class="text-center">
-                        <a class="btn btn-success" href role="button" ng-click="request.grantVisa()">
-                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Grant your visa</a>
-                        <a class="btn btn-danger" href role="button" ng-click="request.denyVisa()">
-                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Deny your visa</a>
-                    </p>
-                </dd>
-            </dl>
+            <form class="form-horizontal" name="request.formVisa">
+
+                <dl class="dl-horizontal" ng-repeat="visa in request.request.appliedAgreementVisas">
+                    <dt>{{visa.date}}</dt>
+                    <dd>
+                        <label>Visa "{{visa.departmentName}} - {{visa.seniority}}"
+                            <span class="label label-success" ng-if="request.isVisaGranted(visa)">Granted</span>
+                            <span class="label label-danger" ng-if="request.isVisaDenied(visa)">Refused</span>
+                            by {{visa.employeeName}}</label>
+                        <br/>
+                        <small>{{visa.comment}}</small>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal" ng-if="requestIsWaitingForValidation">
+                    <dt></dt>
+                    <dd>
+                        <div class="form-group">
+                            <label for="inputEmployee" class="col-sm-4 control-label">Which employee are you supposed to be ?</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="inputEmployee" name="inputEmployee"
+                                        ng-model="request.operation.employee"
+                                        ng-options="employee as
+                                            employee.fullName + ' - ' + employee.departmentLabel + '/' + employee.seniority
+                                            for employee in request.employees"
+                                        ng-required="true"
+                                        ng-change="request.selectedEmployeeHasChanged()">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group"
+                             ng-if="request.selectedEmployeeCanGrantOrDenyNextVisa">
+                            <label for="inputComment" class="col-sm-4 control-label">Visa comment</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="inputComment" name="inputComment"
+                                        ng-model="request.operation.comment"
+                                        placeholder="Comment is mandatory"
+                                        ng-required="true">
+                                </textarea>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal"
+                        ng-if="requestIsWaitingForValidation && request.selectedEmployeeCanGrantOrDenyNextVisa">
+                    <dt></dt>
+                    <dd>
+                        <p class="text-center">
+                            <button type="submit" class="btn btn-success"
+                                    ng-disabled="!request.formVisa.$valid"
+                                    ng-click="request.grantVisa()">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Grant your visa
+                            </button>
+                            <button type="submit" class="btn btn-danger"
+                                    ng-disabled="!request.formVisa.$valid"
+                                    ng-click="request.denyVisa()">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Deny your visa
+                            </button>
+                        </p>
+                    </dd>
+                </dl>
+
+            </form>
         </div>
 
     </div>

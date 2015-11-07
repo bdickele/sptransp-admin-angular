@@ -1,6 +1,6 @@
     <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span> {{title}}</h3><br/>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
         <tr class="info">
             <th>Reference</th>
@@ -13,8 +13,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="request in requests.requests"
-                class="{{requests.getRowCssClass(request)}}">
+        <tr ng-repeat="request in requests.requests">
             <td scope="row"><a href ng-click="requests.selectRequest(request.reference)">{{request.reference}}</a></td>
             <td>{{request.creationDate}}</td>
             <td>{{request.customerName}} ({{request.customerUid}})</td>
@@ -22,8 +21,8 @@
             <td>{{request.departureName}}</td>
             <td>{{request.arrivalName}}</td>
             <td>{{request.agreementStatusName}}
-                <span ng-if="!requests.isRequestWaitingForValidation(request)">{{request.agreementStatusLabel}}</span>
-                <span ng-if="requests.isRequestWaitingForValidation(request)">{{request.agreementStatusLabel}} - Waiting for
+                <span ng-class="requests.getAgreementStatusCssClass(request)">{{request.agreementStatusLabel}}</span>
+                <span ng-if="requests.isRequestWaitingForValidation(request)"> - Waiting for
                     "{{request.nextExpectedAgreementVisa.departmentName}} -
                     {{request.nextExpectedAgreementVisa.seniority}}"</span>
             </td>

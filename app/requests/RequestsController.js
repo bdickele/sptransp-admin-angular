@@ -32,12 +32,12 @@ function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
         return request.agreementStatusCode=='P';
     };
 
-    requests.getRowCssClass = function(request) {
+    requests.getAgreementStatusCssClass = function(request) {
         var mapAgreementStatusCodeCssClass = {
-            'C' : '',
-            'P' : '',
-            'G' : '',
-            'R' : 'danger'
+            'C' : 'label label-danger',
+            'P' : 'label label-primary',
+            'G' : 'label label-success',
+            'R' : 'label label-danger'
         };
 
         return mapAgreementStatusCodeCssClass[request.agreementStatusCode];

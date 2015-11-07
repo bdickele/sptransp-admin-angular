@@ -11,7 +11,10 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
     request.request.remainingVisas = [];
 
     request.employees =[];
-    request.selectedEmployee = {};
+
+    request.selectedEmployeeCanGrantOrDenyNextVisa = false;
+
+    request.operation = {};
 
     $scope.requestIsGranted = false;
     $scope.requestIsRefused = false;
@@ -19,6 +22,9 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
 
     $scope.cssClassForOverallStatus = "";
     $scope.cssClassForAgreementStatus = "";
+
+    $scope.showSubmissionErrorMsg = false;
+    $scope.submissionErrorMsg = "";
 
     // =====================================================
     // Retrieving what we need to display
@@ -37,10 +43,13 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
             $scope.cssClassForOverallStatus = cssClassesForStatuses.cssClassForOverallStatus;
             $scope.cssClassForAgreementStatus = cssClassesForStatuses.cssClassForAgreementStatus;
 
-            req.remainingVisas = request.computeRemainingVisas(req);
-
             request.request = req;
-            $log.debug(request.request);
+            request.request.remainingVisas = request.computeRemainingVisas(req);
+
+            request.operation.visa = req.nextExpectedAgreementVisa;
+
+            request.updateWhatDependsOnRequestOrEmployee();
+            //$log.debug(request.request);
         });
     };
 
@@ -68,7 +77,6 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
     };
 
     request.computeRemainingVisas = function(request) {
-
         if (request.agreementStatusCode!='P') {
             return [];
         }
@@ -86,8 +94,9 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
 
     request.getEmployees = function() {
         RequestModel.getEmployees().then(function(result) {
-            request.selectedEmployee = result[0];
+            request.operation.employee = result[0];
             request.employees = result;
+            request.updateWhatDependsOnRequestOrEmployee();
         });
     };
 
@@ -95,9 +104,25 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
     // Interaction with the view
     // =====================================================
 
-    request.selectedEmployeeCanGrantOrDenyNextVisa = function() {
-        return request.selectedEmployee.departmentCode == request.request.nextExpectedAgreementVisa.departmentCode
-                && request.selectedEmployee.seniority >= request.request.nextExpectedAgreementVisa.seniority;
+    request.updateWhatDependsOnRequestOrEmployee = function() {
+        var visa = request.operation.visa;
+        var employee = request.operation.employee;
+
+        if (employee && visa) {
+            request.selectedEmployeeCanGrantOrDenyNextVisa = request.canEmployeeGrantOrDenyVisa(employee, visa);
+        }
+    };
+
+    request.selectedEmployeeHasChanged = function() {
+        request.updateWhatDependsOnRequestOrEmployee();
+    };
+
+    request.canEmployeeGrantOrDenyVisa = function(employee, visa) {
+        if (!employee || !visa) {
+            return false;
+        }
+
+        return employee.departmentCode == visa.departmentCode && employee.seniority >= visa.seniority;
     };
 
     request.isVisaGranted = function(visa) {
@@ -113,24 +138,30 @@ function RequestCtrl($log, $routeParams, $location, $scope, RequestModel) {
     // =====================================================
 
     request.grantVisa = function() {
-        request.grantOrDenyVisa('G');
+        request.operation.statusCode = 'G';
+        request.applyVisa();
     };
 
     request.denyVisa = function() {
-        request.grantOrDenyVisa('D');
+        request.operation.statusCode = 'D';
+        request.applyVisa();
     };
 
-    request.grantOrDenyVisa = function(status) {
+    request.applyVisa = function() {
         var visa = {
-            employeeUid : request.selectedEmployee.uid,
-            statusCode : status,
-            comment : 'Lorem ipsum : visa comment has to be implemented'
+            employeeUid : request.operation.employee.uid,
+            statusCode : request.operation.statusCode,
+            comment : request.operation.comment
         };
         RequestModel.grantOrDenyVisa(request.request.reference, visa)
             .then(function (result) {
                 $location.path('requests/beingValidated/');
+                $scope.showSubmissionErrorMsg = false;
+                $scope.submissionErrorMsg = "";
             }, function (reason) {
-                $log.error('Could not create employee', reason);
+                $log.error('Could not apply visa', reason);
+                $scope.showSubmissionErrorMsg = true;
+                $scope.submissionErrorMsg = reason.data.error;
             });
     };
 
