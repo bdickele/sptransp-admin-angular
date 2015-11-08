@@ -9,7 +9,7 @@ function AgreementRulesModel($http, EndpointConfigService, UtilsService) {
 
     model.getUrl = function() {return URL};
 
-    model.getAgreementRules = function() {
+    model.getAllAgreementRules = function() {
         return $http
             .get(EndpointConfigService.getUrl(URL + EndpointConfigService.getCurrentFormat()))
             .then(function(result) {

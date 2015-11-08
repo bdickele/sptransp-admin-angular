@@ -50,6 +50,18 @@ myModule.config(function($routeProvider, $httpProvider) {
             controllerAs: 'agreementRules',
             requiresLogin: false
         })
+        .when('/agreementRules?d=:destinationCode', {
+            templateUrl: 'agreementRules/agreementRules.html',
+            controller: 'AgreementRulesCtrl',
+            controllerAs: 'agreementRules',
+            requiresLogin: false
+        })
+        .when('/agreementRules?g=:goodsCode', {
+            templateUrl: 'agreementRules/agreementRules.html',
+            controller: 'AgreementRulesCtrl',
+            controllerAs: 'agreementRules',
+            requiresLogin: false
+        })
         .when('/agreementRules/:destinationCode/:goodsCode', {
             templateUrl: 'agreementRule/agreementRule.html',
             controller: 'AgreementRuleCtrl',

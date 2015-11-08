@@ -2,27 +2,31 @@
 
     <br/>
 
-    <!-- Display rules by destination or good -->
+    <!-- Display rules by destination or goods -->
     <form class="form-inline" name="request.formRequest">
 
         <div class="form-group">
             <label>Display by &nbsp;&nbsp;</label>
             <label><input type="radio" name="displayOption" id="displayOption1" value="destination"
+                          ng-model="displayMode"
                           ng-checked="displayMode=='destination'"
-                          ng-click="selectDisplayMode('destination')">
+                          ng-click="changeCriteria()">
                 Destination</label>
             <select class="form-control" id="inputDestination" name="inputDestination"
                     ng-model="selectedDestination"
-                    ng-options="destination.code as destination.name for destination in agreementRules.destinationsForSelect">
+                    ng-options="destination.code as destination.name for destination in agreementRules.destinationsForSelect"
+                    ng-change="changeCriteria()">
             </select>
             &nbsp;&nbsp;
             <label><input type="radio" name="displayOption" id="displayOption2" value="goods"
+                          ng-model="displayMode"
                           ng-checked="displayMode=='goods'"
-                          ng-click="selectDisplayMode('goods')">
+                          ng-click="changeCriteria()">
                 Goods</label>
             <select class="form-control" id="inputGoods" name="inputGoods"
                     ng-model="selectedGoods"
-                    ng-options="goods.code as goods.name for goods in agreementRules.goodsForSelect">
+                    ng-options="goods.code as goods.name for goods in agreementRules.goodsForSelect"
+                    ng-change="changeCriteria()">
             </select>
         </div>
     </form>
@@ -34,7 +38,7 @@
     <div ng-show="displayMode=='destination'">
         <div class="panel panel-info"
              ng-repeat="destination in agreementRules.destinations"
-             ng-show="selectedDestination=='all' || selectedDestination==destination.code">
+             ng-show="selectedDestination=='ALL' || selectedDestination==destination.code">
             <div class="panel-heading"><strong>{{destination.name}} - {{destination.comment}}</strong></div>
 
             <div class="panel-body">
@@ -76,7 +80,7 @@
     <div ng-show="displayMode=='goods'">
         <div class="panel panel-info"
              ng-repeat="goods in agreementRules.goods"
-             ng-show="selectedGoods=='all' || selectedGoods==goods.code">
+             ng-show="selectedGoods=='ALL' || selectedGoods==goods.code">
             <div class="panel-heading"><strong>{{goods.name}}</strong></div>
 
             <div class="panel-body">
