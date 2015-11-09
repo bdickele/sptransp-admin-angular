@@ -69,7 +69,7 @@ function AgreementRulesCtrl($log, $location, $scope, $route, $routeParams, Agree
             agreementRules.destinationsForSelect = [{code: ALL, name: '--- All ---'}].concat(result);
 
             // Si on est en mode d'affichage 'par destination' on verifie que le code de la destination
-            // correspond a une valeur existante. Si ce n'est pas le cas, on le for ce à 'ALL'
+            // correspond a une valeur existante. Si ce n'est pas le cas, on le force à 'ALL'
             if (($scope.displayMode == 'destination')
                     && ($scope.selectedDestination != ALL)
                     && agreementRules.mapDestination[$scope.selectedDestination]==undefined) {
@@ -108,7 +108,9 @@ function AgreementRulesCtrl($log, $location, $scope, $route, $routeParams, Agree
     };
 
     agreementRules.getRules = function() {
-        agreementRules.treatRules(result);
+        AgreementRulesModel.getAllAgreementRules().then(function(result) {
+            agreementRules.treatRules(result);
+        });
     };
 
     agreementRules.treatRules = function(rules) {

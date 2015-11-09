@@ -38,7 +38,7 @@
     <div ng-show="displayMode=='destination'">
         <div class="panel panel-info"
              ng-repeat="destination in agreementRules.destinations"
-             ng-show="selectedDestination=='ALL' || selectedDestination==destination.code">
+             ng-if="selectedDestination=='ALL' || selectedDestination==destination.code">
             <div class="panel-heading"><strong>{{destination.name}} - {{destination.comment}}</strong></div>
 
             <div class="panel-body">
@@ -80,7 +80,7 @@
     <div ng-show="displayMode=='goods'">
         <div class="panel panel-info"
              ng-repeat="goods in agreementRules.goods"
-             ng-show="selectedGoods=='ALL' || selectedGoods==goods.code">
+             ng-if="selectedGoods=='ALL' || selectedGoods==goods.code">
             <div class="panel-heading"><strong>{{goods.name}}</strong></div>
 
             <div class="panel-body">
