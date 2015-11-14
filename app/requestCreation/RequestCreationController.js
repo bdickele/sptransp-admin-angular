@@ -16,9 +16,11 @@ function RequestCreationCtrl($log, $location, $scope, MainModel, CustomersModel,
     $scope.departureCode = 'EARTH';
     $scope.arrivalCode = 'MOON';
 
+    $scope.requestAllowed = false;
+
     $scope.showOverallErrorMsg = false;
     $scope.showNotAllowedMsg = false;
-    $scope.requestAllowed = false;
+    $scope.requestNotAllowedMsg = "";
     $scope.saveErrorMsg = "";
 
     newRequest.getDestinations = function() {
@@ -48,9 +50,10 @@ function RequestCreationCtrl($log, $location, $scope, MainModel, CustomersModel,
             departureCode : $scope.departureCode,
             arrivalCode : $scope.arrivalCode
         }).then(function (result) {
+            var request = result.data;
             $scope.showOverallErrorMsg = false;
             $scope.saveErrorMsg = "";
-            $location.path('requests/beingValidated/');
+            $location.path('request/' + request.reference);
         }, function (reason) {
             $scope.showOverallErrorMsg = true;
             $scope.saveErrorMsg = "Could not create request: " + reason.statusText;
@@ -60,17 +63,28 @@ function RequestCreationCtrl($log, $location, $scope, MainModel, CustomersModel,
 
     // A request cannot be allowed when rule says it is not allowed or when rule doesn't exist
     newRequest.checkIfRequestAllowed = function() {
-        AgreementRuleModel.getAgreementRule($scope.arrivalCode, $scope.goodsCode)
-            .then(function (result) {
-                var rule = result.data;
-                $scope.showNotAllowedMsg = !rule.reqAllowed;
-                $scope.requestAllowed = rule.reqAllowed;
-                $scope.showOverallErrorMsg = false;
-                $scope.saveErrorMsg = "";
-            }, function (reason) {
-                $scope.showNotAllowedMsg = true;
-                $scope.requestAllowed = false;
-            });
+        $scope.requestAllowed = true;
+        $scope.showOverallErrorMsg = false;
+        $scope.showNotAllowedMsg = false;
+        $scope.requestNotAllowedMsg = "";
+        $scope.saveErrorMsg = "";
+
+        if ($scope.departureCode == $scope.arrivalCode) {
+            $scope.showNotAllowedMsg = true;
+            $scope.requestNotAllowedMsg = "Arrival and departure can't be the same";
+            $scope.requestAllowed = false;
+        } else {
+            AgreementRuleModel.getAgreementRule($scope.arrivalCode, $scope.goodsCode)
+                .then(function (result) {
+                    var rule = result.data;
+                    $scope.requestAllowed = rule.reqAllowed;
+                    $scope.showNotAllowedMsg = !rule.reqAllowed;
+                    $scope.requestNotAllowedMsg = "Unfortunatly we can't currently send this type of goods to that place";
+                }, function (reason) {
+                    $scope.showNotAllowedMsg = true;
+                    $scope.requestAllowed = false;
+                });
+        }
     };
 
     newRequest.checkIfRequestAllowed();

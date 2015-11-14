@@ -5,21 +5,27 @@ angular.module('SpTransp.Requests')
 
 function RequestsModel($http, EndpointConfigService, UtilsService) {
     var model = this;
-    var URL_BEING_VALIDATED = "requests/beingValidated/",
-        URL_VALIDATED_OR_REFUSED = "requests/grantedOrRefused/";
+    var URL_BEING_VALIDATED = "requests/beingValidated",
+        URL_VALIDATED_OR_REFUSED = "requests/grantedOrRefused";
 
-    model.getRequestsBeingValidated = function() {
+    model.addPagination = function(size, page) {
+        return "?size=" + size + "&page=" + page;
+    };
+
+    model.getRequestsBeingValidated = function(size, page) {
         return $http
-            .get(EndpointConfigService.getUrl(URL_BEING_VALIDATED + EndpointConfigService.getCurrentFormat()))
+            .get(EndpointConfigService.getUrl(URL_BEING_VALIDATED
+                + model.addPagination(size, page) + EndpointConfigService.getCurrentFormat()))
             .then(function(result) {
                 return UtilsService.objectToArray(result);
             }
         );
     };
 
-    model.getRequestsGrantedOrRefused = function() {
+    model.getRequestsGrantedOrRefused = function(size, page) {
         return $http
-            .get(EndpointConfigService.getUrl(URL_VALIDATED_OR_REFUSED + EndpointConfigService.getCurrentFormat()))
+            .get(EndpointConfigService.getUrl(URL_VALIDATED_OR_REFUSED
+                + model.addPagination(size, page) + EndpointConfigService.getCurrentFormat()))
             .then(function(result) {
                 return UtilsService.objectToArray(result);
             }

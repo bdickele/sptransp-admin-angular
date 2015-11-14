@@ -1,4 +1,27 @@
-    <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span> {{title}} ({{requests.requests.length}})</h3><br/>
+    <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span> {{title}}</h3>
+
+
+    <div class="row">
+        <div class="col-sm-3"
+             style="margin: 5px">{{paginationLabel}}</div>
+        <div class="col-sm-3"
+             style="margin: 5px">Number of items per page:
+            <select ng-model="nbOfElementsPerPage"
+                    ng-options="nb as nb for nb in itemsPerPageOptions"
+                    ng-change="changeItemsPerPage(nbOfElementsPerPage)">
+            </select>
+        </div>
+        <div style="float: right" ng-if="totalNbOfPages>1">
+            <nav>
+                <ul class="pagination pagination-sm">
+                    <li ng-repeat="page in getRange(totalNbOfPages)"
+                        ng-class="{'active': page==(currentPageIndex+1)}">
+                        <a href ng-click="changePage(page-1)">{{page}}</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <table class="table table-bordered table-striped table-condensed">
         <thead>
@@ -15,7 +38,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="request in requests.requests">
-            <td scope="row"><a href ng-click="requests.selectRequest(request.reference)">{{request.reference}}</a></td>
+            <td scope="row"><a href ng-click="selectRequest(request.reference)">{{request.reference}}</a></td>
             <td>{{request.creationDate}}</td>
             <td>{{request.updateDate}}</td>
             <td>{{request.customerName}} ({{request.customerUid}})</td>
@@ -23,8 +46,8 @@
             <td>{{request.departureName}}</td>
             <td>{{request.arrivalName}}</td>
             <td>{{request.agreementStatusName}}
-                <span ng-class="requests.getAgreementStatusCssClass(request)">{{request.agreementStatusLabel}}</span>
-                <span ng-if="requests.isRequestWaitingForValidation(request)"> - Waiting for
+                <span ng-class="getAgreementStatusCssClass(request)">{{request.agreementStatusLabel}}</span>
+                <span ng-if="isRequestWaitingForValidation(request)"> - Waiting for
                     "{{request.nextExpectedAgreementVisa.departmentName}} -
                     {{request.nextExpectedAgreementVisa.seniority}}"</span>
             </td>

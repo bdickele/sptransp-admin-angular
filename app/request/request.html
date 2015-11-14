@@ -17,7 +17,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    <label>From > To : </label> {{request.request.departureName}} > {{request.request.arrivalName}}
+                    <label>Departure and arrival : </label>
+                    {{request.request.departureName}} <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    {{request.request.arrivalName}}
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <label>Goods : </label> {{request.request.goodsName}}
@@ -55,6 +57,11 @@
             </div>
 
             <form class="form-horizontal" name="request.formVisa">
+
+                <dl class="dl-horizontal" ng-if="request.request.appliedAgreementVisas.length==0">
+                    <dt></dt>
+                    <dd>No agreement visa has yet been applied</dd>
+                </dl>
 
                 <dl class="dl-horizontal" ng-repeat="visa in request.request.appliedAgreementVisas">
                     <dt>{{visa.date}}</dt>
