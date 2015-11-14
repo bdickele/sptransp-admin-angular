@@ -135,7 +135,7 @@ function AgreementRulesCtrl($log, $location, $scope, $route, $routeParams, Agree
         $location.search(queryParam + '=' + queryValue.toLocaleLowerCase());
     };
 
-    agreementRules.ruleUrl = function(destinationCode, goodsCode) {
+    $scope.ruleUrl = function(destinationCode, goodsCode) {
         return AgreementRulesModel.getUrl() + destinationCode.toLowerCase() + "/" + goodsCode.toLowerCase();
     };
 
