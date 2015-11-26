@@ -1,7 +1,7 @@
 head.load(
     { file: 'bower_components/jquery/dist/jquery.min.js' },
     { file: 'bower_components/angular/angular.min.js' },
-    { file: 'bower_components/angular-loader/angular-loader.min.js' },
+    //{ file: 'bower_components/angular-loader/angular-loader.min.js' },
     { file: 'bower_components/angular-route/angular-route.min.js' },
     { file: 'bower_components/angular-messages/angular-messages.min.js' },
 
