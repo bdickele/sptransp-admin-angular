@@ -56,10 +56,17 @@ function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
     requests.analyzePaginatedResult = function(result) {
         var listOfRequests = result[0];
         $scope.totalNbOfRequests = result[1];
-        $scope.totalNbOfPages = result[3];
+        $scope.totalNbOfPages = result[2];
         $scope.nbOfElementsPerPage = result[4];
         $scope.currentPageIndex = result[5];
         $scope.nbOfElementsDisplayed = result[8];
+
+        //$log.debug(result);
+        //$log.debug($scope.totalNbOfRequests);
+        //$log.debug($scope.totalNbOfPages);
+        //$log.debug($scope.nbOfElementsPerPage);
+        //$log.debug($scope.currentPageIndex);
+        //$log.debug($scope.nbOfElementsDisplayed);
 
         var indexOfFirstRequestDisplayed = $scope.currentPageIndex * $scope.nbOfElementsPerPage;
         var indexOfLastRequestDisplayed = indexOfFirstRequestDisplayed + $scope.nbOfElementsDisplayed;
