@@ -54,12 +54,12 @@ function RequestsCtrl($log, $scope, $location, $routeParams, RequestsModel) {
     };
 
     requests.analyzePaginatedResult = function(result) {
-        var listOfRequests = result[0];
-        $scope.totalNbOfRequests = result[2];
-        $scope.totalNbOfPages = result[1];
-        $scope.nbOfElementsPerPage = result[4];
-        $scope.currentPageIndex = result[5];
-        $scope.nbOfElementsDisplayed = result[7];
+        var listOfRequests = result.requests;
+        $scope.totalNbOfRequests = result.totalNumberOfRequests;
+        $scope.totalNbOfPages = result.totalNumberOfPages;
+        $scope.nbOfElementsPerPage = result.numberOfElementsPerPage;
+        $scope.currentPageIndex = result.currentPageIndex;
+        $scope.nbOfElementsDisplayed = result.numberOfElementsDisplayed;
 
         //$log.debug(result);
         //$log.debug($scope.totalNbOfRequests);

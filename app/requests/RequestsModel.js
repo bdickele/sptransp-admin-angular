@@ -17,7 +17,7 @@ function RequestsModel($http, EndpointConfigService, UtilsService) {
             .get(EndpointConfigService.getUrl(URL_BEING_VALIDATED
                 + model.addPagination(size, page) + EndpointConfigService.getCurrentFormat()))
             .then(function(result) {
-                return UtilsService.objectToArray(result);
+                return result.data;
             }
         );
     };
@@ -27,7 +27,7 @@ function RequestsModel($http, EndpointConfigService, UtilsService) {
             .get(EndpointConfigService.getUrl(URL_VALIDATED_OR_REFUSED
                 + model.addPagination(size, page) + EndpointConfigService.getCurrentFormat()))
             .then(function(result) {
-                return UtilsService.objectToArray(result);
+                return result.data;
             }
         );
     };
