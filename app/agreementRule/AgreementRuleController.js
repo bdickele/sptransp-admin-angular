@@ -34,7 +34,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         agreementRule.creationMode = !editionMode;
         agreementRule.rule = rule;
         agreementRule.editedRule = angular.copy(agreementRule.rule);
-        if (!rule.reqAllowed) {
+        if (!rule.allowed) {
             $scope.panelStyle = 'panel panel-danger';
         } else {
             $scope.panelStyle = 'panel panel-info';
@@ -83,8 +83,8 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
             destinationName: agreementRule.selectedDestination.name,
             goodsCode : agreementRule.selectedGoods.code,
             goodsName: agreementRule.selectedGoods.name,
-            reqAllowed: true,
-            agreementVisas: []
+            allowed: true,
+            visas: []
         };
         agreementRule.selectRule(rule, false);
     };
@@ -122,20 +122,20 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     // ========================================================================
 
     agreementRule.removeVisa = function(index) {
-        var visas = agreementRule.editedRule.agreementVisas;
+        var visas = agreementRule.editedRule.visas;
         if (visas.length < 2) return;
-        agreementRule.editedRule.agreementVisas.splice(index, 1);
+        agreementRule.editedRule.visas.splice(index, 1);
     };
 
     agreementRule.addVisa = function() {
-        agreementRule.editedRule.agreementVisas.push({
+        agreementRule.editedRule.visas.push({
                 departmentCode : agreementRule.departments[0].code,
                 seniority: 10}
         );
     };
 
     agreementRule.moveVisaLeft = function(index) {
-        var visas = agreementRule.editedRule.agreementVisas;
+        var visas = agreementRule.editedRule.visas;
         if (index<=0) return;
 
         var visasBefore = visas.slice(0, index-1);
@@ -143,14 +143,14 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         var visaToMoveToTheRight = visas.slice(index-1, index);
         var visasAfter = visas.slice(index+1);
 
-        agreementRule.editedRule.agreementVisas = visasBefore
+        agreementRule.editedRule.visas = visasBefore
             .concat(visaToMoveToTheLeft)
             .concat(visaToMoveToTheRight)
             .concat(visasAfter);
     };
 
     agreementRule.moveVisaRight = function(index) {
-        var visas = agreementRule.editedRule.agreementVisas;
+        var visas = agreementRule.editedRule.visas;
         if (index>(visas.length-1)) return;
 
         var visasBefore = [];
@@ -161,7 +161,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
         var visaToMoveToTheRight = visas.slice(index, index+1);
         var visasAfter = visas.slice(index+2);
 
-        agreementRule.editedRule.agreementVisas = visasBefore
+        agreementRule.editedRule.visas = visasBefore
             .concat(visaToMoveToTheLeft)
             .concat(visaToMoveToTheRight)
             .concat(visasAfter);
@@ -186,7 +186,7 @@ function AgreementRuleCtrl($log, $scope, $location, $routeParams, AgreementRuleM
     };
 
     agreementRule.copyEditedRule = function() {
-        var fields = ['destinationCode', 'goodsCode', 'reqAllowed', 'agreementVisas'];
+        var fields = ['destinationCode', 'goodsCode', 'allowed', 'visas'];
 
         fields.forEach(function (field) {
             agreementRule.rule[field] = agreementRule.editedRule[field];

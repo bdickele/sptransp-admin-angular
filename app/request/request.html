@@ -84,7 +84,7 @@
                                 <select class="form-control" id="inputEmployee" name="inputEmployee"
                                         ng-model="request.operation.employee"
                                         ng-options="employee as
-                                            employee.fullName + ' - ' + employee.departmentLabel + '/' + employee.seniority
+                                            employee.fullName + ' - ' + employee.departmentName + '/' + employee.seniority
                                             for employee in request.employees"
                                         ng-required="true"
                                         ng-change="request.selectedEmployeeHasChanged()">

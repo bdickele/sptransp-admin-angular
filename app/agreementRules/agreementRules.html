@@ -47,21 +47,21 @@
                     <tr>
                         <th>Goods</th>
                         <th>Agreement visas required</th>
-                        <th ng-if="!agreementRules.getRule(destination.code, goods.code).reqAllowed"></th>
+                        <th ng-if="!agreementRules.getRule(destination.code, goods.code).allowed"></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="goods in agreementRules.goods">
                         <td>{{goods.name}}</td>
-                        <td ng-if="agreementRules.getRule(destination.code, goods.code).reqAllowed">
-                            <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).agreementVisas">
+                        <td ng-if="agreementRules.getRule(destination.code, goods.code).allowed">
+                            <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).visas">
                                 <span class="label label-default">{{visa.departmentName}} - {{visa.seniority}}</span>
                                 <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
                                       ng-if="!$last"></span>
                             </span>
                         </td>
-                        <td ng-if="!agreementRules.getRule(destination.code, goods.code).reqAllowed">
+                        <td ng-if="!agreementRules.getRule(destination.code, goods.code).allowed">
                             <label class="label label-danger">Not allowed</label>
                         </td>
                         <td>
@@ -95,14 +95,14 @@
                     <tbody>
                     <tr ng-repeat="destination in agreementRules.destinations">
                         <td>{{destination.name}}</td>
-                        <td ng-if="agreementRules.getRule(destination.code, goods.code).reqAllowed">
-                            <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).agreementVisas">
+                        <td ng-if="agreementRules.getRule(destination.code, goods.code).allowed">
+                            <span ng-repeat="visa in agreementRules.getRule(destination.code, goods.code).visas">
                                 <span class="label label-default">{{visa.departmentName}} - {{visa.seniority}}</span>
                                 <span class="glyphicon glyphicon-chevron-right glyphicon-align-left" aria-hidden="true"
                                       ng-if="!$last"></span>
                             </span>
                         </td>
-                        <td ng-if="!agreementRules.getRule(destination.code, goods.code).reqAllowed">
+                        <td ng-if="!agreementRules.getRule(destination.code, goods.code).allowed">
                             <label class="label label-danger">Not allowed</label>
                         </td>
                         <td>

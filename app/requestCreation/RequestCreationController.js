@@ -77,8 +77,8 @@ function RequestCreationCtrl($log, $location, $scope, MainModel, CustomersModel,
             AgreementRuleModel.getAgreementRule($scope.arrivalCode, $scope.goodsCode)
                 .then(function (result) {
                     var rule = result.data;
-                    $scope.requestAllowed = rule.reqAllowed;
-                    $scope.showNotAllowedMsg = !rule.reqAllowed;
+                    $scope.allowed = rule.allowed;
+                    $scope.showNotAllowedMsg = !rule.allowed;
                     $scope.requestNotAllowedMsg = "Unfortunatly we can't currently send this type of goods to that place";
                 }, function (reason) {
                     $scope.showNotAllowedMsg = true;

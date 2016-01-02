@@ -36,7 +36,7 @@
     <div ng-class="panelStyle">
 
         <div class="panel-heading">
-            <span class="large" ng-show="!agreementRule.rule.reqAllowed">
+            <span class="large" ng-show="!agreementRule.rule.allowed">
                 <mark><strong>[BANNED]</strong></mark>&nbsp;&nbsp;
             </span>
             Agreement rule for <strong>{{agreementRule.rule.destinationName}}</strong> /
@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-2"><p class="text-right">Allowed :</p></div>
                 <div class="col-xs-12 col-md-4">
-                    <input type="checkbox" ng-model="agreementRule.editedRule.reqAllowed">
+                    <input type="checkbox" ng-model="agreementRule.editedRule.allowed">
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="visa in agreementRule.editedRule.agreementVisas">
+                    <tr ng-repeat="visa in agreementRule.editedRule.visas">
                         <td>{{$index + 1}}</td>
                         <td>
                             <form class="form-inline">
@@ -104,7 +104,7 @@
                                         </button>
                                         <button type="button" class="btn btn-default"
                                                 ng-click="agreementRule.removeVisa($index)"
-                                                ng-show="agreementRule.editedRule.agreementVisas.length>1">
+                                                ng-show="agreementRule.editedRule.visas.length>1">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button>
                                     </div>

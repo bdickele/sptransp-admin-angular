@@ -150,8 +150,8 @@ function AgreementRulesCtrl($log, $location, $scope, $route, $routeParams, Agree
                 destinationName: agreementRules.mapDestination[destinationCode],
                 goodsCode: goodsCode,
                 goodsName: agreementRules.mapGoods[goodsCode],
-                reqAllowed: true,
-                agreementVisas: []
+                allowed: true,
+                visas: []
             };
             agreementRules.mapRules[key] = newRule;
             return newRule;

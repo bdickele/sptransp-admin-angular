@@ -3,7 +3,7 @@
 angular.module('SpTransp.Requests')
     .controller('RequestsCtrl', RequestsCtrl);
 
-function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
+function RequestsCtrl($log, $scope, $location, $routeParams, RequestsModel) {
     var requests = this;
 
     const TYPE_BEING_VALIDATED = 'beingValidated';
@@ -55,11 +55,11 @@ function RequestsCtrl($scope, $location, $routeParams, RequestsModel) {
 
     requests.analyzePaginatedResult = function(result) {
         var listOfRequests = result[0];
-        $scope.totalNbOfRequests = result[1];
-        $scope.totalNbOfPages = result[2];
+        $scope.totalNbOfRequests = result[2];
+        $scope.totalNbOfPages = result[1];
         $scope.nbOfElementsPerPage = result[4];
         $scope.currentPageIndex = result[5];
-        $scope.nbOfElementsDisplayed = result[8];
+        $scope.nbOfElementsDisplayed = result[7];
 
         //$log.debug(result);
         //$log.debug($scope.totalNbOfRequests);

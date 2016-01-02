@@ -42,7 +42,7 @@
                     <div class="col-sm-6">
                         <select class="form-control" id="inputProfile"
                                 ng-model="employee.editedEmployee.profileCode"
-                                ng-options="profile.code as profile.label for profile in employee.availableProfiles"
+                                ng-options="profile.code as profile.name for profile in employee.availableProfiles"
                                 ng-required="true">
                         </select>
                     </div>
